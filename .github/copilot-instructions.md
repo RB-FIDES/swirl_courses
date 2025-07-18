@@ -37,7 +37,9 @@ add_full_context()     # all available files
 # See available options
 add_to_instructions()  # shows help
 ```
-When in chat and you detect instruction to add to the context, provide commands to run in the R Terminal. 
+When in chat and you detect instruction to add to the context, or perceive such a need, provide commands to run in the R Terminal. 
+
+When you percieve you need additional context that could find found in some of the files mentioned in the .gihtub/copilot-instructions.md, promt the use to run commands in the terminal to update the context using these custom functions.
 
 
 <!-- DYNAMIC CONTENT START -->

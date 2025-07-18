@@ -4,11 +4,8 @@
 
 ## Domain Terms
 
-- **Caseload**: The administratively defined population actively receiving services during a reference period.
-- **Spell**: A continuous period of program engagement with no service interruption longer than X days.
-- **Household**: Group of individuals sharing economic responsibilities, as defined in intake form Section 3.
+- **AI**: Artificial Intelligence, the simulation of human intelligence processes by machines, especially computer systems.
 
-## Technical Terms
+- **swirl**: A platform for interactive learning in R, often used for teaching statistics and data science concepts. see https://swirlstats.com/instructors.html for information on how to create swirl courses.
 
-- **STAY event**: A client re-activating services after a short gap, not considered a NEW intake.
-- **Confidence Interval**: Range of values within which the true parameter lies with specified probability, e.g., 95%.
+
