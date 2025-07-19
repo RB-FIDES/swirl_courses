@@ -1,3 +1,5 @@
+Відповідай переважно українською, сучасною мовою. Англійскі терміни пиши англійскьою, але роби лаконіний переклад українською в дужках. Наприклад, "AI (штучний інтелект)".source("scripts/update-copilot-context.R"); add_to_instructions("mission")
+
 # Who You Are Assisting
 
 You are assisting a human analyst with the following profile:
@@ -42,8 +44,34 @@ When in chat and you detect instruction to add to the context, or perceive such 
 When you percieve you need additional context that could find found in some of the files mentioned in the .gihtub/copilot-instructions.md, promt the use to run commands in the terminal to update the context using these custom functions.
 
 
+
 <!-- DYNAMIC CONTENT START -->
 
+### Mission (from `./ai/mission.md`)
+```markdown
+# teleology-mission-why.md
+
+This project exists to create a system for translating swirl courses into Ukrainian language. 
+
+
+```
+
+### Glossary (from `./ai/glossary.md`)
+```markdown
+# glossary.md
+
+> Current content is an example. Please replace with project-sepcific material. 
+
+## Domain Terms
+
+- **AI**: Artificial Intelligence, the simulation of human intelligence processes by machines, especially computer systems.
+
+- **swirl**: A platform for interactive learning in R, often used for teaching statistics and data science concepts. see https://swirlstats.com/instructors.html for information on how to create swirl courses.
+
+
+```
 
 <!-- DYNAMIC CONTENT END -->
+
+
 

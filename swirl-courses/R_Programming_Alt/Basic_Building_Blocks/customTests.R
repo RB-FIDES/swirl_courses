@@ -5,34 +5,34 @@ notify <- function() {
   good <- FALSE
   while(!good) {
     # Get info
-    name <- readline_clean("What is your full name? ")
-    address <- readline_clean("What is the email address of the person you'd like to notify? ")
+    name <- readline_clean("Як тебе звати повністю? ")
+    address <- readline_clean("Яка електронна адреса особи, яку ти хочеш повідомити? ")
     
     # Repeat back to them
-    message("\nDoes everything look good?\n")
-    message("Your name: ", name, "\n", "Send to: ", address)
+    message("\nВсе виглядає правильно?\n")
+    message("Твоє ім'я: ", name, "\n", "Надіслати на: ", address)
     
-    yn <- select.list(c("Yes", "No"), graphics = FALSE)
-    if(yn == "Yes") good <- TRUE
+    yn <- select.list(c("Так", "Ні"), graphics = FALSE)
+    if(yn == "Так") good <- TRUE
   }
   
   # Get course and lesson names
   course_name <- attr(e$les, "course_name")
   lesson_name <- attr(e$les, "lesson_name")
   
-  subject <- paste(name, "just completed", course_name, "-", lesson_name)
+  subject <- paste(name, "щойно завершила", course_name, "-", lesson_name)
   body = ""
   
   # Send email
   swirl:::email(address, subject, body)
   
   hrule()
-  message("I just tried to create a new email with the following info:\n")
-  message("To: ", address)
-  message("Subject: ", subject)
-  message("Body: <empty>")
+  message("Я щойно спробувала створити новий електронний лист з наступною інформацією:\n")
+  message("До: ", address)
+  message("Тема: ", subject)
+  message("Зміст: <порожньо>")
   
-  message("\nIf it didn't work, you can send the same email manually.")
+  message("\nЯкщо це не спрацювало, ти можеш надіслати той самий лист вручну.")
   hrule()
   
   # Return TRUE to satisfy swirl and return to course menu

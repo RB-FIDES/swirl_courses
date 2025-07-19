@@ -1,252 +1,190 @@
 - Class: meta
   Course: R Programming
   Lesson: Basic Building Blocks
-  Author: Nick Carchedi
+  Author: Nick Carchedi (translated by Andriy Koval)
   Type: Standard
   Organization: JHU Biostat
   Version: 2.2.0
 
 - Class: text
-  Output: In this lesson, we will explore some basic building blocks of the R programming
-    language.
+  Output: В цьому уроці, Галя, ми вивчимо базові будівельні блоки мови програмування R.
 
 - Class: text
-  Output: If at any point you'd like more information on a particular topic related
-    to R, you can type help.start() at the prompt, which will open a menu of resources
-    (either within RStudio or your default web browser, depending on your setup).
-    Alternatively, a simple web search often yields the answer you're looking for.
+  Output: Якщо у будь-який момент тобі потрібна додаткова інформація з певної теми в R, можеш набрати help.start() в командному рядку. Це відкриє меню ресурсів (або в RStudio, або в твоєму браузері, залежно від налаштувань). Альтернативно, простий пошук в інтернеті часто дає потрібну відповідь.
 
 - Class: cmd_question
-  Output: In its simplest form, R can be used as an interactive calculator. Type
-    5 + 7 and press Enter.
+  Output: У найпростішій формі R можна використовувати як інтерактивний калькулятор. Набери 5 + 7 і натисни Enter.
   CorrectAnswer: 5 + 7
   AnswerTests: omnitest(correctExpr='5 + 7')
-  Hint: Type 5 + 7 and press Enter.
+  Hint: Набери 5 + 7 і натисни Enter.
 
 - Class: text
-  Output: R simply prints the result of 12 by default. However, R is a programming
-    language and often the reason we use a programming language as opposed to a calculator
-    is to automate some process or avoid unnecessary repetition.
+  Output: R просто виводить результат 12 за замовчуванням. Проте R - це мова програмування, і часто причина, чому ми використовуємо мову програмування замість калькулятора, полягає в автоматизації процесів або уникненні непотрібних повторень.
 
 - Class: text
-  Output: In this case, we may want to use our result from above in a second calculation.
-    Instead of retyping 5 + 7 every time we need it, we can just create a new variable
-    that stores the result.
+  Output: У цьому випадку ми можемо захотіти використати наш результат з попереднього прикладу в другому обчисленні. Замість того, щоб кожного разу набирати 5 + 7, коли нам це потрібно, ми можемо просто створити нову змінну (variable), яка зберігає результат.
 
 - Class: text
-  Output: 'The way you assign a value to a variable in R is by using the assignment
-    operator, which is just a ''less than'' symbol followed by a ''minus'' sign. It
-    looks like this: <-'
+  Output: Спосіб присвоєння (assignment) значення змінній в R полягає у використанні оператора присвоєння, який є просто символом "менше" з наступним знаком "мінус". Виглядає це так <- 
 
 - Class: text
-  Output: Think of the assignment operator as an arrow. You are assigning the value
-    on the right side of the arrow to the variable name on the left side of the arrow.
+  Output: Уяви оператор присвоєння як стрілку. Ти присвоюєш значення з правого боку стрілки до назви змінної з лівого боку стрілки.
 
 - Class: cmd_question
-  Output: To assign the result of 5 + 7 to a new variable called x, you type x <-
-    5 + 7. This can be read as 'x gets 5 plus 7'. Give it a try now.
+  Output: Щоб присвоїти результат 5 + 7 новій змінній під назвою x, набери x <- 5 + 7. Це можна прочитати як "x отримує 5 плюс 7". Спробуй зараз.
   CorrectAnswer: x <- 5 + 7
   AnswerTests: any_of_exprs('x <- 5 + 7', 'x <- 7 + 5')
-  Hint: Type x <- 5 + 7. It's important to include a single space on each side of
-    the assignment operator, but do NOT put a space between the `<` and the `-` that
-    form the arrow.
+  Hint: Набери x <- 5 + 7. Важливо включити один пробіл з кожного боку оператора присвоєння, але НЕ ставити пробіл між '<' і '-', які утворюють стрілку.
 
 - Class: text
-  Output: You'll notice that R did not print the result of 12 this time. When you
-    use the assignment operator, R assumes that you don't want to see the result immediately,
-    but rather that you intend to use the result for something else later on.
+  Output: Ти помітиш, що цього разу R не вивів результат 12. Коли ти використовуєш оператор присвоєння, R припускає, що ти не хочеш відразу бачити результат, а скоріше маєш намір використати його для чогось іншого пізніше.
 
 - Class: cmd_question
-  Output: To view the contents of the variable x, just type x and press Enter. Try
-    it now.
+  Output: Щоб переглянути вміст змінної x, просто набери x і натисни Enter. Спробуй зараз.
   CorrectAnswer: x
   AnswerTests: omnitest(correctExpr='x')
-  Hint: Type x and press Enter. This will automatically print the value of x.
+  Hint: Набери x і натисни Enter. Це автоматично виведе значення x.
 
 - Class: cmd_question
-  Output: Now, store the result of x - 3 in a new variable called y.
+  Output: Тепер збережи результат x - 3 у новій змінній під назвою y.
   CorrectAnswer: y <- x - 3
   AnswerTests: omnitest(correctExpr='y <- x - 3')
-  Hint: Type y <- x - 3 and press Enter. Whether you use x - 3 or x-3 is personal
-    preference, but it's good habit to include a space on either side of the assignment
-    operator.
+  Hint: Набери y <- x - 3 і натисни Enter. Неважливо, чи використовуєш ти x - 3 або x-3 - це питання особистих уподобань, але добрий звичай включати пробіл з обох боків оператора присвоєння.
 
 - Class: cmd_question
-  Output: What is the value of y? Type y to find out.
+  Output: Яке значення у y? Набери y, щоб дізнатися.
   CorrectAnswer: 'y'
   AnswerTests: omnitest(correctExpr='y')
-  Hint: Type y and press Enter.
+  Hint: Набери y і натисни Enter.
 
 - Class: text
-  Output: Now, let's create a small collection of numbers called a vector. Any object
-    that contains data is called a data structure and numeric vectors are the simplest
-    type of data structure in R. In fact, even a single number is considered a vector
-    of length one.
+  Output: Тепер створимо невелику колекцію чисел, яка називається вектор (vector). Будь-який об'єкт, що містить дані, називається структурою даних (data structure), і числові вектори є найпростішим типом структури даних в R. Фактично, навіть одне число вважається вектором довжиною один.
 
 - Class: cmd_question
-  Output: The easiest way to create a vector is with the c() function, which stands
-    for 'concatenate' or 'combine'. To create a vector containing the numbers 1.1,
-    9, and 3.14, type c(1.1, 9, 3.14). Try it now and store the result in a variable
-    called z.
+  Output: Найпростіший спосіб створити вектор - це функція c(), яка означає "concatenate" (конкатенувати) або "combine" (комбінувати). Щоб створити вектор, що містить числа 1.1, 9 і 3.14, набери c(1.1, 9, 3.14). Спробуй зараз і збережи результат у змінній під назвою z.
   CorrectAnswer: z <- c(1.1, 9, 3.14)
   AnswerTests: omnitest(correctExpr='z <- c(1.1, 9, 3.14)')
-  Hint: Inputting z <- c(1.1, 9, 3.14) will assign the vector (1.1, 9, 3.14) to a
-    new variable called z. Including single spaces after the commas in the vector
-    is not required, but helps make your code less cluttered and more readable.
+  Hint: Введення z <- c(1.1, 9, 3.14) присвоїть вектор (1.1, 9, 3.14) новій змінній під назвою z. Включення пробілів після ком у векторі не обов'язкове, але допомагає зробити твій код менш загромадженим і більш читабельним.
 
 - Class: cmd_question
-  Output: Anytime you have questions about a particular function, you can access R's
-    built-in help files via the `?` command. For example, if you want more information
-    on the c() function, type ?c without the parentheses that normally follow a function
-    name. Give it a try.
+  Output: Коли у тебе є питання про певну функцію, ти можеш отримати доступ до вбудованих файлів довідки R через команду '?'. Наприклад, якщо тобі потрібна додаткова інформація про функцію c(), набери ?c без дужок, які зазвичай йдуть після назви функції. Спробуй.
   CorrectAnswer: ?c
   AnswerTests: omnitest(correctExpr='?c')
-  Hint: Type ?c and press Enter. This will bring up the help file for the c() function.
+  Hint: Набери ?c і натисни Enter. Це відкриє файл довідки для функції c().
 
 - Class: cmd_question
-  Output: Type z to view its contents. Notice that there are no commas separating
-    the values in the output.
+  Output: Набери z, щоб переглянути його вміст. Зверни увагу, що в результаті немає ком, які розділяють значення.
   CorrectAnswer: z
   AnswerTests: omnitest(correctExpr='z')
-  Hint: Type z and press Enter to view its contents.
+  Hint: Набери z і натисни Enter, щоб переглянути його вміст.
 
 - Class: cmd_question
-  Output: You can combine vectors to make a new vector. Create a new vector that contains
-    z, 555, then z again in that order. Don't assign this vector to a new variable,
-    so that we can just see the result immediately.
+  Output: Ти можеш комбінувати вектори, щоб створити новий вектор. Створи новий вектор, який містить z, потім 555, потім знову z в такому порядку. Не присвоюй цей вектор новій змінній, щоб ми могли відразу побачити результат.
   CorrectAnswer: c(z, 555, z)
   AnswerTests: omnitest(correctExpr='c(z, 555, z)')
-  Hint: Type c(z, 555, z). Don't create a new variable. We just want to view the result.
+  Hint: Набери c(z, 555, z). Не створюй нову змінну. Ми просто хочемо переглянути результат.
 
 - Class: cmd_question
-  Output: 'Numeric vectors can be used in arithmetic expressions. Type the following
-    to see what happens: z * 2 + 100.'
+  Output: "Числові вектори можна використовувати в арифметичних виразах. Набери наступне, щоб побачити, що станеться: z * 2 + 100."
   CorrectAnswer: z * 2 + 100
   AnswerTests: omnitest(correctExpr='z * 2 + 100')
-  Hint: Enter z * 2 + 100, without assigning the result to a variable. The `*` symbol
-    is used for multiplication and shares a key with the number 8 on many keyboards.
+  Hint: Введи z * 2 + 100, не присвоюючи результат змінній. Символ '*' використовується для множення і на багатьох клавіатурах знаходиться на одній клавіші з цифрою 8.
 
 - Class: text
-  Output: First, R multiplied each of the three elements in z by 2. Then it added
-    100 to each element to get the result you see above.
+  Output: Спочатку R помножив кожен з трьох елементів z на 2. Потім додав 100 до кожного елемента, щоб отримати результат, який ти бачиш вище.
 
 - Class: text
-  Output: Other common arithmetic operators are `+`, `-`, `/`, and `^` (where x^2
-    means 'x squared'). To take the square root, use the sqrt() function and to take
-    the absolute value, use the abs() function.
+  Output: Інші поширені арифметичні оператори - це '+', '-', '/', і '^' (де x^2 означає "x у квадраті"). Щоб взяти квадратний корінь, використовуй функцію sqrt(), а для абсолютного значення - функцію abs().
 
 - Class: cmd_question
-  Output: Take the square root of z - 1 and assign it to a new variable called my_sqrt.
+  Output: Візьми квадратний корінь з z - 1 і присвой його новій змінній під назвою my_sqrt.
   CorrectAnswer: my_sqrt <- sqrt(z - 1)
   AnswerTests: omnitest(correctExpr='my_sqrt <- sqrt(z - 1)')
-  Hint: Assign the result of sqrt(z - 1) to a variable called my_sqrt.
+  Hint: Присвой результат sqrt(z - 1) змінній під назвою my_sqrt.
 
 - Class: mult_question
-  Output: Before we view the contents of the my_sqrt variable, what do you think it
-    contains?
-  CorrectAnswer: a vector of length 3
-  AnswerChoices: a vector of length 3; a single number (i.e a vector of length 1);
-    a vector of length 0 (i.e. an empty vector)
-  AnswerTests: omnitest(correctVal='a vector of length 3')
-  Hint: 'Think about how R handled the other ''vectorized'' operations: element-by-element.'
+  Output: Перед тим як переглянути вміст змінної my_sqrt, як ти думаєш, що вона містить?
+  CorrectAnswer: вектор довжиною 3
+  AnswerChoices: вектор довжиною 3; одне число (тобто вектор довжиною 1); вектор довжиною 0 (тобто порожній вектор)
+  AnswerTests: omnitest(correctVal='вектор довжиною 3')
+  Hint: Подумай про те, як R обробляв інші "векторизовані" операції - елемент за елементом.
 
 - Class: cmd_question
-  Output: Print the contents of my_sqrt.
+  Output: Виведи вміст my_sqrt.
   CorrectAnswer: my_sqrt
   AnswerTests: omnitest(correctExpr='my_sqrt')
-  Hint: Just type my_sqrt and press Enter to view its value.
+  Hint: Просто набери my_sqrt і натисни Enter, щоб переглянути його значення.
 
 - Class: text
-  Output: As you may have guessed, R first subtracted 1 from each element of z, then
-    took the square root of each element. This leaves you with a vector of the same
-    length as the original vector z.
+  Output: Як ти, мабуть, здогадалася, R спочатку відняв 1 від кожного елемента z, потім взяв квадратний корінь з кожного елемента. Це дає тобі вектор такої ж довжини, як і оригінальний вектор z.
 
 - Class: cmd_question
-  Output: Now, create a new variable called my_div that gets the value of z divided
-    by my_sqrt.
+  Output: Тепер створи нову змінну під назвою my_div, яка отримає значення z поділеного на my_sqrt.
   CorrectAnswer: my_div <- z / my_sqrt
   AnswerTests: omnitest(correctExpr='my_div <- z / my_sqrt')
-  Hint: Enter my_div <- z / my_sqrt. The spaces on either side of the `/` sign are not
-    required, but can often improve readability by making code appear less cluttered.
-    In the end, it's personal preference.
+  Hint: Введи my_div <- z / my_sqrt. Пробіли з обох боків знака '/' не обов'язкові, але часто можуть покращити читабельність, роблячи код менш загромадженим. Зрештою, це питання особистих уподобань.
 
 - Class: mult_question
-  Output: Which statement do you think is true?
-  CorrectAnswer: The first element of my_div is equal to the first element of z divided
-    by the first element of my_sqrt, and so on...
-  AnswerChoices: The first element of my_div is equal to the first element of z divided
-    by the first element of my_sqrt, and so on...; my_div is a single number (i.e a
-    vector of length 1); my_div is undefined
-  AnswerTests: omnitest(correctVal='The first element of my_div is equal to the first
-    element of z divided by the first element of my_sqrt, and so on...')
-  Hint: Think about how R handled the other 'vectorized' operations like `+` and `*`.
+  Output: Яке твердження, на твою думку, правильне?
+  CorrectAnswer: Перший елемент my_div дорівнює першому елементу z поділеному на перший елемент my_sqrt, і так далі...
+  AnswerChoices: Перший елемент my_div дорівнює першому елементу z поділеному на перший елемент my_sqrt, і так далі...; my_div - це одне число (тобто вектор довжиною 1); my_div не визначено
+  AnswerTests: omnitest(correctVal='Перший елемент my_div дорівнює першому елементу z поділеному на перший елемент my_sqrt, і так далі...')
+  Hint: Подумай про те, як R обробляв інші "векторизовані" операції, такі як '+' і '*'.
 
 - Class: cmd_question
-  Output: Go ahead and print the contents of my_div.
+  Output: Давай, виведи вміст my_div.
   CorrectAnswer: my_div
   AnswerTests: omnitest(correctExpr='my_div')
-  Hint: Type my_div and press Enter to see its contents.
+  Hint: Набери my_div і натисни Enter, щоб побачити його вміст.
 
 - Class: text
-  Output: When given two vectors of the same length, R simply performs the specified
-    arithmetic operation (`+`, `-`, `*`, etc.) element-by-element. If the vectors
-    are of different lengths, R 'recycles' the shorter vector until it is the same
-    length as the longer vector.
+  Output: Коли R отримує два вектори однакової довжини, він просто виконує зазначену арифметичну операцію ('+', '-', '*', тощо) елемент за елементом. Якщо вектори мають різну довжину, R "переробляє" (recycles) коротший вектор, поки він не стане такої ж довжини, як довший вектор.
 
 - Class: text
-  Output: When we did z * 2 + 100 in our earlier example, z was a vector of length
-    3, but technically 2 and 100 are each vectors of length 1.
+  Output: Коли ми робили z * 2 + 100 в нашому попередньому прикладі, z був вектором довжиною 3, але технічно 2 і 100 - це кожен вектори довжиною 1.
 
 - Class: text
-  Output: 'Behind the scenes, R is ''recycling'' the 2 to make a vector of 2s and
-    the 100 to make a vector of 100s. In other words, when you ask R to compute z
-    * 2 + 100, what it really computes is this: z * c(2, 2, 2) + c(100, 100, 100).'
+  Output: За лаштунками R "переробляє" 2, щоб зробити вектор з двійок, і 100, щоб зробити вектор зі сотень. Іншими словами, коли ти просиш R обчислити z * 2 + 100, насправді він обчислює це - z * c(2, 2, 2) + c(100, 100, 100).
 
 - Class: cmd_question
-  Output: To see another example of how this vector 'recycling' works, try adding
-    c(1, 2, 3, 4) and c(0, 10). Don't worry about saving the result in a new variable.
+  Output: Щоб побачити інший приклад того, як працює це векторне "переробляння", спробуй додати c(1, 2, 3, 4) і c(0, 10). Не турбуйся про збереження результату в новій змінній.
   CorrectAnswer: c(1, 2, 3, 4) + c(0, 10)
   AnswerTests: omnitest(correctExpr='c(1, 2, 3, 4) + c(0, 10)')
-  Hint: Enter c(1, 2, 3, 4) + c(0, 10) in the console to see how R adds two vectors
-    of different length. Don't assign the result to a variable.
+  Hint: Введи c(1, 2, 3, 4) + c(0, 10) в консолі, щоб побачити, як R додає два вектори різної довжини. Не присвоюй результат змінній.
 
 - Class: text
-  Output: If the length of the shorter vector does not divide evenly into the length
-    of the longer vector, R will still apply the 'recycling' method, but will throw
-    a warning to let you know something fishy might be going on.
+  Output: Якщо довжина коротшого вектора не ділиться рівно на довжину довшого вектора, R все одно застосує метод "переробляння", але видасть попередження, щоб повідомити тебе, що щось підозріле може відбуватися.
 
 - Class: cmd_question
-  Output: Try c(1, 2, 3, 4) + c(0, 10, 100) for an example.
+  Output: Спробуй c(1, 2, 3, 4) + c(0, 10, 100) для прикладу.
   CorrectAnswer: c(1, 2, 3, 4) + c(0, 10, 100)
   AnswerTests: omnitest(correctExpr='c(1, 2, 3, 4) + c(0, 10, 100)')
-  Hint: Type c(1, 2, 3, 4) + c(0, 10, 100) to see how R handles adding two vectors,
-    when the shorter vector's length does not divide evenly into the longer vector's
-    length. Don't worry about assigning the result to a variable.
+  Hint: Набери c(1, 2, 3, 4) + c(0, 10, 100), щоб побачити, як R обробляє додавання двох векторів, коли довжина коротшого вектора не ділиться рівно на довжину довшого вектора. Не турбуйся про присвоєння результату змінній.
 
 - Class: text
-  Output: Before concluding this lesson, I'd like to show you a couple of time-saving tricks.
+  Output: Перед завершенням цього уроку я хотів би показати тобі кілька трюків для економії часу.
 
 - Class: text
-  Output: Earlier in the lesson, you computed z * 2 + 100. Let's pretend that you made a mistake and that you meant to add 1000 instead of 100. You could either re-type the expression, or...
+  Output: Раніше в уроці ти обчислювала z * 2 + 100. Припустимо, що ти зробила помилку і насправді хотіла додати 1000 замість 100. Ти можеш або перенабрати вираз, або...
 
 - Class: cmd_question
-  Output: In many programming environments, the up arrow will cycle through previous commands. Try hitting the up arrow on your keyboard until you get to this command (z * 2 + 100), then change 100 to 1000 and hit Enter. If the up arrow doesn't work for you, just type the corrected command.
+  Output: В багатьох середовищах програмування стрілка вгору прокручує попередні команди. Спробуй натискати стрілку вгору на клавіатурі, поки не дійдеш до цієї команди (z * 2 + 100), потім зміни 100 на 1000 і натисни Enter. Якщо стрілка вгору не працює, просто набери виправлену команду.
   CorrectAnswer: z * 2 + 1000
   AnswerTests: omnitest(correctExpr='z * 2 + 1000')
-  Hint: If your environment does not support the up arrow feature, then just type the corrected command to move on.
+  Hint: Якщо твоє середовище не підтримує функцію стрілки вгору, просто набери виправлену команду, щоб продовжити.
 
 - Class: text
-  Output: Finally, let's pretend you'd like to view the contents of a variable that you created earlier, but you can't seem to remember if you named it my_div or myDiv. You could try both and see what works, or...
+  Output: Нарешті, припустимо, що ти хочеш переглянути вміст змінної, яку створила раніше, але не можеш пригадати, чи назвала її my_div, чи myDiv. Ти можеш спробувати обидва варіанти і подивитися, що спрацює, або...
 
 - Class: cmd_question
-  Output: You can type the first two letters of the variable name, then hit the Tab key (possibly more than once). Most programming environments will provide a list of variables that you've created that begin with 'my'. This is called auto-completion and can be quite handy when you have many variables in your workspace. Give it a try. (If auto-completion doesn't work for you, just type my_div and press Enter.)
+  Output: Ти можеш набрати перші два символи назви змінної, потім натиснути клавішу Tab (можливо, більше одного разу). Більшість середовищ програмування надасть список змінних, які ти створила, що починаються з "my". Це називається автодоповнення і може бути досить зручним, коли у тебе багато змінних в робочому просторі. Спробуй. (Якщо автодоповнення не працює, просто набери my_div і натисни Enter.)
   CorrectAnswer: my_div
   AnswerTests: omnitest(correctExpr='my_div')
-  Hint: If your programming environment doesn't support auto-completion, just type my_div and hit Enter to move on.
+  Hint: Якщо твоє середовище програмування не підтримує автодоповнення, просто набери my_div і натисни Enter, щоб продовжити.
 
 - Class: mult_question
-  Output: Would you like to inform someone about your successful completion of this lesson?
+  Output: Чи хотіла б ти повідомити комусь про своє успішне завершення цього уроку?
   CorrectAnswer: NULL
-  AnswerChoices: Yes; No
+  AnswerChoices: Так; Ні
   AnswerTests: notify()
   Hint: NULL
