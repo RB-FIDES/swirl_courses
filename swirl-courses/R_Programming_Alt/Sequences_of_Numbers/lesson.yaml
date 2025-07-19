@@ -7,170 +7,119 @@
   Version: 2.2.0
 
 - Class: text
-  Output: In this lesson, you'll learn how to create sequences of numbers in R.
+  Output: Галю, в цьому уроці ти навчишся створювати послідовності чисел (sequences of numbers) в R.
 
 - Class: cmd_question
-  Output: The simplest way to create a sequence of numbers in R is by using the `:`
-    operator. Type 1:20 to see how it works.
+  Output: Найпростіший спосіб створити послідовність чисел в R - це використовувати оператор `:`. Набери 1:20 щоб побачити, як це працює.
   CorrectAnswer: '1:20'
   AnswerTests: omnitest(correctExpr='1:20')
-  Hint: Type 1:20 with no spaces. Make sure to use a regular colon and NOT a semi-colon.
+  Hint: Набери 1:20 без пробілів. Переконайся, що використовуєш звичайну двокрапку, а НЕ крапку з комою.
 
 - Class: cmd_question
-  Output: That gave us every integer between (and including) 1 and 20. We could also
-    use it to create a sequence of real numbers. For example, try pi:10.
+  Output: Це дало нам кожне ціле число між 1 та 20 (включно). Ми також можемо використовувати це для створення послідовності дійсних чисел (real numbers). Наприклад, спробуй pi:10.
   CorrectAnswer: pi:10
   AnswerTests: omnitest(correctExpr='pi:10')
-  Hint: Enter pi:10 and see what happens. pi is a predefined constant in R that takes
-    on the value 3.1415....
+  Hint: Введи pi:10 і подивись, що станеться. pi - це заздалегідь визначена константа в R, яка має значення 3.1415....
 
 - Class: text
-  Output: The result is a vector of real numbers starting with pi (3.142...) and increasing
-    in increments of 1. The upper limit of 10 is never reached, since the next number
-    in our sequence would be greater than 10.
+  Output: Результат - це вектор дійсних чисел, що починається з pi (3.142...) і збільшується з кроком 1. Верхня межа 10 ніколи не досягається, оскільки наступне число в нашій послідовності було б більше за 10.
 
 - Class: cmd_question
-  Output: 'What happens if we do 15:1? Give it a try to find out.'
+  Output: 'Що станеться, якщо ми зробимо 15:1? Спробуй, щоб дізнатися.'
   CorrectAnswer: '15:1'
   AnswerTests: omnitest(correctExpr='15:1')
-  Hint: Type 15:1 and press Enter.
+  Hint: Набери 15:1 і натисни Enter.
 
 - Class: text
-  Output: It counted backwards in increments of 1! It's unlikely we'd want this behavior,
-    but nonetheless it's good to know how it could happen.
+  Output: Воно рахувало назад з кроком 1! Навряд чи ми хотіли б такої поведінки, але все ж добре знати, як це може статися.
 
 - Class: text
-  Output: "Remember that if you have questions about a particular R function, you
-    can access its documentation with a question mark followed by the function name:
-    ?function_name_here. However, in the case of an operator like the colon used above,
-    you must enclose the symbol in backticks like this: ?`:`. (NOTE: The backtick
-    (`) key is generally located in the top left corner of a keyboard, above the Tab
-    key. If you don't have a backtick key, you can use regular quotes.)"
+  Output: "Пам'ятай, що якщо в тебе є запитання про конкретну функцію R, ти можеш отримати доступ до її документації за допомогою знака запитання, за яким слідує назва функції: ?function_name_here. Однак, у випадку оператора, такого як двокрапка, що використовувалася вище, ти повинна помістити символ у зворотні лапки так: ?`:`. (ПРИМІТКА: Клавіша зворотної лапки (`) зазвичай розташована у верхньому лівому куті клавіатури, над клавішею Tab. Якщо у тебе немає клавіші зворотної лапки, ти можеш використовувати звичайні лапки.)"
 
 - Class: cmd_question
-  Output: Pull up the documentation for `:` now.
+  Output: Переглянь документацію для `:` зараз.
   CorrectAnswer: ?`:`
   AnswerTests: ANY_of_exprs('?`:`', "?':'", '?":"')
-  Hint: "In order to view the documentation for a symbol like the colon operator,
-    you have to use backticks (or quotes). This is so R knows you are not attempting to use the
-    symbol in the command. Here's what it looks like: ?`:`. Don't forget the question
-    mark out front."
+  Hint: "Щоб переглянути документацію для символа, такого як оператор двокрапки, ти повинна використовувати зворотні лапки (або звичайні лапки). Це потрібно для того, щоб R знав, що ти не намагаєшся використовувати символ у команді. Ось як це виглядає: ?`:`. Не забудь знак запитання на початку."
 
 - Class: text
-  Output: Often, we'll desire more control over a sequence we're creating than what
-    the `:` operator gives us. The seq() function serves this purpose.
+  Output: Часто ми хочемо більше контролю над послідовністю, яку створюємо, ніж дає нам оператор `:`. Функція seq() служить цій меті.
 
 - Class: cmd_question
-  Output: The most basic use of seq() does exactly the same thing as the `:` operator.
-    Try seq(1, 20) to see this.
+  Output: Найбазовіше використання seq() робить точно те саме, що й оператор `:`. Спробуй seq(1, 20), щоб побачити це.
   CorrectAnswer: seq(1, 20)
   AnswerTests: omnitest(correctExpr='seq(1, 20)')
-  Hint: Type seq(1, 20) and press Enter. The space after the comma is not required,
-    but is recommended as it tends to make your code appear less cluttered.
+  Hint: Набери seq(1, 20) і натисни Enter. Пробіл після коми не обов'язковий, але рекомендується, оскільки він робить твій код менш захаращеним.
 
 - Class: cmd_question
-  Output: This gives us the same output as 1:20. However, let's say that instead we
-    want a vector of numbers ranging from 0 to 10, incremented by 0.5. seq(0, 10,
-    by=0.5) does just that. Try it out.
+  Output: Це дає нам той самий результат, що й 1:20. Однак, скажімо, що замість цього ми хочемо вектор чисел у діапазоні від 0 до 10, з кроком 0.5. seq(0, 10, by=0.5) робить саме це. Спробуй.
   CorrectAnswer: seq(0, 10, by=0.5)
   AnswerTests: omnitest(correctExpr='seq(0, 10, by=0.5)')
-  Hint: You are still using the seq() function here, but this time with an extra argument
-    that tells R you want to increment your sequence by 0.5. Try seq(0, 10, by=0.5).
+  Hint: Ти все ще використовуєш функцію seq(), але цього разу з додатковим аргументом (argument), який говорить R, що ти хочеш збільшувати свою послідовність на 0.5. Спробуй seq(0, 10, by=0.5).
 
 - Class: cmd_question
-  Output: Or maybe we don't care what the increment is and we just want a sequence
-    of 30 numbers between 5 and 10. seq(5, 10, length=30) does the trick. Give it
-    shot now and store the result in a new variable called my_seq.
+  Output: Або, можливо, нас не цікавить, який крок, і ми просто хочемо послідовність з 30 чисел між 5 і 10. seq(5, 10, length=30) робить цю справу. Спробуй зараз і збережи результат у новій змінній під назвою my_seq.
   CorrectAnswer: my_seq <- seq(5, 10, length=30)
   AnswerTests: omnitest(correctExpr='my_seq <- seq(5, 10, length=30)')
-  Hint: 'You''re using the same function here, but changing its arguments for different
-    results. Be sure to store the result in a new variable called my_seq, like this:
-    my_seq <- seq(5, 10, length=30).'
+  Hint: 'Ти використовуєш ту саму функцію, але змінюєш її аргументи для різних результатів. Переконайся, що зберігаєш результат у новій змінній під назвою my_seq, ось так: my_seq <- seq(5, 10, length=30).'
 
 - Class: cmd_question
-  Output: To confirm that my_seq has length 30, we can use the length() function.
-    Try it now.
+  Output: Щоб підтвердити, що my_seq має довжину (length) 30, ми можемо використати функцію length(). Спробуй зараз.
   CorrectAnswer: length(my_seq)
   AnswerTests: omnitest(correctExpr='length(my_seq)')
-  Hint: Use length(my_seq) to view the length of the my_seq variable.
+  Hint: Використай length(my_seq) щоб переглянути довжину змінної my_seq.
 
 - Class: text
-  Output: Let's pretend we don't know the length of my_seq, but we want to generate
-    a sequence of integers from 1 to N, where N represents the length of the my_seq
-    vector. In other words, we want a new vector (1, 2, 3, ...) that is the same length
-    as my_seq.
+  Output: Уявімо, що ми не знаємо довжини my_seq, але хочемо згенерувати послідовність цілих чисел від 1 до N, де N представляє довжину вектора my_seq. Іншими словами, ми хочемо новий вектор (1, 2, 3, ...), який має ту саму довжину, що й my_seq.
 
 - Class: cmd_question
-  Output: 'There are several ways we could do this. One possibility is to combine
-    the `:` operator and the length() function like this: 1:length(my_seq). Give that
-    a try.'
+  Output: 'Є кілька способів, як ми можемо це зробити. Одна можливість - поєднати оператор `:` і функцію length() ось так: 1:length(my_seq). Спробуй це.'
   CorrectAnswer: 1:length(my_seq)
   AnswerTests: omnitest(correctExpr='1:length(my_seq)')
-  Hint: Try 1:length(my_seq), without assigning the result to a new variable.
+  Hint: Спробуй 1:length(my_seq), не присвоюючи результат новій змінній.
 
 - Class: cmd_question
-  Output: Another option is to use seq(along.with = my_seq). Give that a try.
+  Output: Інший варіант - використати seq(along.with = my_seq). Спробуй це.
   CorrectAnswer: seq(along.with = my_seq)
   AnswerTests: omnitest(correctExpr='seq(along.with = my_seq)')
-  Hint: Type seq(along.with = my_seq). Notice we're using the same seq() function, but
-    with a different argument called `along.with`. This tells R that you want a sequence
-    'along with' the sequence my_seq. Remember you can type ?seq if you have questions
-    about the seq() function.
+  Hint: Набери seq(along.with = my_seq). Зверни увагу, що ми використовуємо ту саму функцію seq(), але з іншим аргументом під назвою `along.with`. Це говорить R, що ти хочеш послідовність 'вздовж' послідовності my_seq. Пам'ятай, ти можеш набрати ?seq, якщо в тебе є запитання про функцію seq().
 
 - Class: cmd_question
-  Output: However, as is the case with many common tasks, R has a separate built-in
-    function for this purpose called seq_along(). Type seq_along(my_seq) to see it
-    in action.
+  Output: Однак, як це часто буває з багатьма поширеними завданнями, R має окрему вбудовану функцію для цієї мети під назвою seq_along(). Набери seq_along(my_seq), щоб побачити її в дії.
   CorrectAnswer: seq_along(my_seq)
   AnswerTests: omnitest(correctExpr='seq_along(my_seq)')
-  Hint: The seq_along() function is a variation of the seq() function. Try seq_along(my_seq)
-    to get the same result yet another way.
+  Hint: Функція seq_along() - це варіація функції seq(). Спробуй seq_along(my_seq), щоб отримати той самий результат ще одним способом.
 
 - Class: text
-  Output: There are often several approaches to solving the same problem, particularly
-    in R. Simple approaches that involve less typing are generally best. It's also
-    important for your code to be readable, so that you and others can figure out
-    what's going on without too much hassle.
+  Output: Часто існує кілька підходів до вирішення тієї самої проблеми, особливо в R. Прості підходи, які передбачають менше набору тексту, зазвичай найкращі. Також важливо, щоб твій код був читабельним, щоб ти та інші могли зрозуміти, що відбувається, без особливих труднощів.
 
 - Class: text
-  Output: If R has a built-in function for a particular task, it's likely that function
-    is highly optimized for that purpose and is your best option. As you become a
-    more advanced R programmer, you'll design your own functions to perform tasks
-    when there are no better options. We'll explore writing your own functions in
-    future lessons.
+  Output: Якщо R має вбудовану функцію для конкретного завдання, ймовірно, ця функція високо оптимізована для цієї мети і є твоїм найкращим варіантом. Коли ти станеш більш досвідченим програмістом R, ти будеш створювати власні функції для виконання завдань, коли немає кращих варіантів. Ми дослідимо написання власних функцій у майбутніх уроках.
 
 - Class: text
-  Output: One more function related to creating sequences of numbers is rep(), which
-    stands for 'replicate'. Let's look at a few uses.
+  Output: Ще одна функція, пов'язана зі створенням послідовностей чисел, - це rep(), що означає 'replicate' (повторювати). Давай подивимося на кілька застосувань.
 
 - Class: cmd_question
-  Output: If we're interested in creating a vector that contains 40 zeros, we can
-    use rep(0, times = 40). Try it out.
+  Output: Якщо нас цікавить створення вектора, який містить 40 нулів, ми можемо використати rep(0, times = 40). Спробуй.
   CorrectAnswer: rep(0, times = 40)
   AnswerTests: omnitest(correctExpr='rep(0, times = 40)')
-  Hint: Type rep(0, times = 40) to make a vector containing 40 zeros.
+  Hint: Набери rep(0, times = 40), щоб створити вектор, що містить 40 нулів.
 
 - Class: cmd_question
-  Output: If instead we want our vector to contain 10 repetitions of the vector (0,
-    1, 2), we can do rep(c(0, 1, 2), times = 10). Go ahead.
+  Output: Якщо замість цього ми хочемо, щоб наш вектор містив 10 повторень вектора (0, 1, 2), ми можемо зробити rep(c(0, 1, 2), times = 10). Давай.
   CorrectAnswer: rep(c(0, 1, 2), times = 10)
   AnswerTests: omnitest(correctExpr='rep(c(0, 1, 2), times = 10)')
-  Hint: Try rep(c(0, 1, 2), times = 10) for a different variation on the same theme.
-    Be sure to use the c() function to tell R that the numbers 0, 1, and 2 make up
-    a vector.
+  Hint: Спробуй rep(c(0, 1, 2), times = 10) для іншої варіації на ту саму тему. Переконайся, що використовуєш функцію c(), щоб сказати R, що числа 0, 1 і 2 утворюють вектор.
 
 - Class: cmd_question
-  Output: Finally, let's say that rather than repeating the vector (0, 1, 2) over
-    and over again, we want our vector to contain 10 zeros, then 10 ones, then 10
-    twos. We can do this with the `each` argument. Try rep(c(0, 1, 2), each = 10).
+  Output: Нарешті, скажімо, що замість того, щоб повторювати вектор (0, 1, 2) знову і знову, ми хочемо, щоб наш вектор містив 10 нулів, потім 10 одиниць, потім 10 двійок. Ми можемо зробити це за допомогою аргументу `each`. Спробуй rep(c(0, 1, 2), each = 10).
   CorrectAnswer: rep(c(0, 1, 2), each = 10)
   AnswerTests: omnitest(correctExpr='rep(c(0, 1, 2), each = 10)')
-  Hint: Type rep(c(0, 1, 2), each = 10) to see how the `each` argument to the rep()
-    function alters its behavior slightly.
+  Hint: Набери rep(c(0, 1, 2), each = 10), щоб побачити, як аргумент `each` функції rep() трохи змінює її поведінку.
 
 - Class: mult_question
-  Output: Would you like to inform someone about your successful completion of this lesson?
+  Output: Чи хотіла б ти повідомити комусь про успішне завершення цього уроку?
   CorrectAnswer: NULL
-  AnswerChoices: Yes; No
+  AnswerChoices: Так; Ні
   AnswerTests: notify()
   Hint: NULL
