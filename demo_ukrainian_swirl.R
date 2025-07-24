@@ -35,13 +35,13 @@ for(i in 1:5) {
   cat(paste("✗", tryAgain_ua(), "\n"))
 }
 
-cat("\n" %R% paste(rep("=", 60), collapse="") %R% "\n")
+cat("\n", paste(rep("=", 60), collapse=""), "\n")
 cat("ГОТОВО! Тепер можеш запустити:\n")
 cat("READY! Now you can run:\n\n")
 cat("swirl()\n\n")
 cat("І ти побачиш українські повідомлення під час проходження курсу!\n")
 cat("And you will see Ukrainian messages while taking the course!\n")
-cat(paste(rep("=", 60), collapse="") %R% "\n")
+cat(paste(rep("=", 60), collapse=""), "\n")
 
 # ==============================================================================
 # ДОДАТКОВІ ФУНКЦІЇ / ADDITIONAL FUNCTIONS

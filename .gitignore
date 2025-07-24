@@ -5,3 +5,16 @@ swirl_courses.Rproj
 .RData
 *.html
 .Rapp.history
+
+# Temporary files
+/tmp/
+*.tmp
+*.bak
+
+# R session data
+.RDataTmp*
+
+# IDE files
+*.Rproj
+.vscode/
+.idea/
