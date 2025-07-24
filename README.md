@@ -99,3 +99,11 @@ Instructors around the world are using swirl in their classrooms. We think this 
 
 If you are not sure about a particular use case, don't hesitate to post a
 question to our [Google Group](https://groups.google.com/forum/#!forum/swirl-discuss).
+
+---
+
+**AI-Human Symbiosis Acknowledgment**  
+Ukrainian language support section co-developed through AI-human collaboration.  
+*Provider:* GitHub Copilot (OpenAI)  
+*Human Supervisor:* @oleksandkov  
+*Framework:* FIDES - Framework for Interpretive Dialogue and Epistemic Symbiosis

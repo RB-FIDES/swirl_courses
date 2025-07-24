@@ -145,4 +145,11 @@ list.files(pattern = "ukrainian")
 - 🎮 **Тестування** - завжди можеш перевірити роботу через `quick_test()`
 
 ---
+
 *Створено для проекту RB-FIDES swirl courses* 🇺🇦
+
+**AI-Human Symbiosis Acknowledgment**  
+This guide was co-developed through AI-human collaboration.  
+*Provider:* GitHub Copilot (OpenAI)  
+*Human Supervisor:* @oleksandkov  
+*Framework:* FIDES - Framework for Interpretive Dialogue and Epistemic Symbiosis
