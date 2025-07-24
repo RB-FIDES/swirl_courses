@@ -104,6 +104,6 @@ question to our [Google Group](https://groups.google.com/forum/#!forum/swirl-dis
 
 **AI-Human Symbiosis Acknowledgment**  
 Ukrainian language support section co-developed through AI-human collaboration.  
-*Provider:* GitHub Copilot (OpenAI)  
+*Provider:* GitHub Copilot Chat (GPT-4 based)  
 *Human Supervisor:* @oleksandkov  
 *Framework:* FIDES - Framework for Interpretive Dialogue and Epistemic Symbiosis

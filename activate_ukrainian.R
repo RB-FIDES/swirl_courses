@@ -166,6 +166,6 @@ cat("🚀 QUICK START: activate_ukrainian()\n\n")
 # AI-HUMAN SYMBIOSIS ACKNOWLEDGMENT
 # ==============================================================================
 # This activation system was co-developed through AI-human collaboration
-# Provider: GitHub Copilot (OpenAI)
+# Provider: GitHub Copilot Chat (GPT-4 based)
 # Human Supervisor: @oleksandkov  
 # Framework: FIDES - Framework for Interpretive Dialogue and Epistemic Symbiosis

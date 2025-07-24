@@ -150,6 +150,6 @@ list.files(pattern = "ukrainian")
 
 **AI-Human Symbiosis Acknowledgment**  
 This guide was co-developed through AI-human collaboration.  
-*Provider:* GitHub Copilot (OpenAI)  
+*Provider:* GitHub Copilot Chat (GPT-4 based)  
 *Human Supervisor:* @oleksandkov  
 *Framework:* FIDES - Framework for Interpretive Dialogue and Epistemic Symbiosis
