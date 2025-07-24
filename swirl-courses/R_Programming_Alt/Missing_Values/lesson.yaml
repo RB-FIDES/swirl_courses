@@ -1,111 +1,111 @@
 - Class: meta
   Course: R Programming
   Lesson: Missing Values
-  Author: Nick Carchedi
+  Author: Nick Carchedi 
   Type: Standard
   Organization: JHU Biostat
   Version: 2.2.0
 
 - Class: text
-  Output: Missing values play an important role in statistics and data analysis. Often, missing values must not be ignored, but rather they should be carefully studied to see if there's an underlying pattern or cause for their missingness.
+  Output: Missing values (пропущені значення) відіграють важливу роль у статистиці та аналізі даних. Часто пропущені значення не можна ігнорувати, а навпаки, їх слід ретельно вивчати, щоб побачити, чи є якась основна закономірність або причина їхньої відсутності.
 
 - Class: text
-  Output: In R, NA is used to represent any value that is 'not available' or 'missing' (in the statistical sense). In this lesson, we'll explore missing values further.
+  Output: В R, NA використовується для представлення будь-якого значення, яке є 'недоступним' або 'пропущеним' (у статистичному сенсі). У цьому уроці ми детальніше дослідимо пропущені значення.
 
 - Class: cmd_question
-  Output: Any operation involving NA generally yields NA as the result. To illustrate, let's create a vector c(44, NA, 5, NA) and assign it to a variable x.
+  Output: Будь-яка операція з NA зазвичай дає NA як результат. Щоб це проілюструвати, створи вектор c(44, NA, 5, NA) і присвой його змінній x.
   CorrectAnswer: x <- c(44, NA, 5, NA)
   AnswerTests: omnitest(correctExpr='x <- c(44, NA, 5, NA)')
-  Hint: Assign the vector c(44, NA, 5, NA) to a variable x. The NA must uppercase.
+  Hint: Присвой вектор c(44, NA, 5, NA) змінній x. NA має бути написано великими літерами.
 
 - Class: cmd_question
-  Output: Now, let's multiply x by 3.
+  Output: Тепер помнож x на 3.
   CorrectAnswer: x * 3
   AnswerTests: ANY_of_exprs('x * 3', '3 * x')
-  Hint: Try x * 3.
+  Hint: Спробуй x * 3.
 
 - Class: text
-  Output: Notice that the elements of the resulting vector that correspond with the NA values in x are also NA.
+  Output: Зверни увагу, що елементи отриманого вектора, які відповідають значенням NA в x, також є NA.
 
 - Class: cmd_question
-  Output: To make things a little more interesting, lets create a vector containing 1000 draws from a standard normal distribution with y <- rnorm(1000).
+  Output: Щоб зробити це трохи цікавіше, створи вектор, що містить 1000 випадкових значень зі стандартного нормального розподілу (standard normal distribution) за допомогою y <- rnorm(1000).
   CorrectAnswer: y <- rnorm(1000)
   AnswerTests: omnitest(correctExpr='y <- rnorm(1000)')
-  Hint: The function rnorm() generates random numbers from a normal distribution. Type y <- rnorm(1000).
+  Hint: Функція rnorm() генерує випадкові числа з нормального розподілу. Набери y <- rnorm(1000).
 
 - Class: cmd_question
-  Output: Next, let's create a vector containing 1000 NAs with z <- rep(NA, 1000).
+  Output: Далі, створи вектор, що містить 1000 NA за допомогою z <- rep(NA, 1000).
   CorrectAnswer: z <- rep(NA, 1000)
   AnswerTests: omnitest(correctExpr='z <- rep(NA, 1000)')
-  Hint: Type z <- rep(NA, 1000) to generate a vector of 1000 NAs.
+  Hint: Набери z <- rep(NA, 1000), щоб згенерувати вектор з 1000 NA.
 
 - Class: cmd_question
-  Output: Finally, let's select 100 elements at random from these 2000 values (combining y and z) such that we don't know how many NAs we'll wind up with or what positions they'll occupy in our final vector -- my_data <- sample(c(y, z), 100).
+  Output: Нарешті, вибери 100 елементів випадково з цих 2000 значень (об'єднуючи y і z) так, щоб ми не знали, скільки NA у нас буде або які позиції вони займатимуть у нашому кінцевому векторі -- my_data <- sample(c(y, z), 100).
   CorrectAnswer: my_data <- sample(c(y, z), 100)
   AnswerTests: omnitest(correctExpr='my_data <- sample(c(y, z), 100)')
-  Hint: The sample() function draws a random sample from the data provided as its first argument (in this case c(y, z)) of the size specified by the second argument (100). The command my_data <- sample(c(y, z), 100) will give us what we want.
+  Hint: Функція sample() витягує випадкову вибірку з даних, наданих як перший аргумент (у цьому випадку c(y, z)) розміром, зазначеним другим аргументом (100). Команда my_data <- sample(c(y, z), 100) дасть нам те, що ми хочемо.
 
 - Class: cmd_question
-  Output: Let's first ask the question of where our NAs are located in our data. The is.na() function tells us whether each element of a vector is NA. Call is.na() on my_data and assign the result to my_na.
+  Output: Спочатку поставимо питання про те, де розташовані наші NA в наших даних. Функція is.na() повідомляє нам, чи кожен елемент вектора є NA. Викличи is.na() на my_data і присвой результат my_na.
   CorrectAnswer: my_na <- is.na(my_data)
   AnswerTests: omnitest(correctExpr='my_na <- is.na(my_data)')
-  Hint: Assign the result of is.na(my_data) to the variable my_na.
+  Hint: Присвой результат is.na(my_data) змінній my_na.
 
 - Class: cmd_question
-  Output: Now, print my_na to see what you came up with.
+  Output: Тепер виведи my_na, щоб побачити, що вийшло.
   CorrectAnswer: my_na
   AnswerTests: omnitest(correctExpr='my_na')
-  Hint: Type my_na to view its contents.
+  Hint: Набери my_na, щоб переглянути її вміст.
 
 - Class: text
-  Output: Everywhere you see a TRUE, you know the corresponding element of my_data is NA. Likewise, everywhere you see a FALSE, you know the corresponding element of my_data is one of our random draws from the standard normal distribution.
+  Output: Скрізь, де ти бачиш TRUE, ти знаєш, що відповідний елемент my_data є NA. Так само, скрізь, де ти бачиш FALSE, ти знаєш, що відповідний елемент my_data є одним з наших випадкових значень зі стандартного нормального розподілу.
 
 - Class: cmd_question
-  Output: In our previous discussion of logical operators, we introduced the `==` operator as a method of testing for equality between two objects. So, you might think the expression my_data == NA yields the same results as is.na(). Give it a try.
+  Output: У нашому попередньому обговоренні logical operators (логічних операторів) ми представили оператор `==` як метод перевірки рівності між двома об'єктами. Отже, ти можеш подумати, що вираз my_data == NA дає ті самі результати, що й is.na(). Спробуй це.
   CorrectAnswer: my_data == NA
   AnswerTests: omnitest(correctExpr='my_data == NA')
-  Hint: Try my_data == NA to see what happens.
+  Hint: Спробуй my_data == NA, щоб побачити, що станеться.
 
 - Class: text
-  Output: The reason you got a vector of all NAs is that NA is not really a value, but just a placeholder for a quantity that is not available. Therefore the logical expression is incomplete and R has no choice but to return a vector of the same length as my_data that contains all NAs.
+  Output: Причина, чому ти отримав вектор з усіх NA, полягає в тому, що NA насправді не є значенням, а лише placeholder (заповнювачем) для величини, яка недоступна. Тому logical expression (логічний вираз) є неповним, і R не має іншого вибору, крім як повернути вектор такої ж довжини, як my_data, який містить усі NA.
 
 - Class: text
-  Output: Don't worry if that's a little confusing. The key takeaway is to be cautious when using logical expressions anytime NAs might creep in, since a single NA value can derail the entire thing.
+  Output: Не хвилюйся, якщо це трохи заплутано. Ключовий висновок полягає в тому, щоб бути обережним при використанні logical expressions (логічних виразів), коли NA можуть з'явитися, оскільки одне значення NA може зруйнувати всю систему.
 
 - Class: text
-  Output: So, back to the task at hand. Now that we have a vector, my_na, that has a TRUE for every NA and FALSE for every numeric value, we can compute the total number of NAs in our data.
+  Output: Отже, повернемося до справи. Тепер, коли ми маємо вектор my_na, який має TRUE для кожного NA і FALSE для кожного числового значення, ми можемо обчислити загальну кількість NA в наших даних.
 
 - Class: text
-  Output: The trick is to recognize that underneath the surface, R represents TRUE as the number 1 and FALSE as the number 0. Therefore, if we take the sum of a bunch of TRUEs and FALSEs, we get the total number of TRUEs.
+  Output: Секрет полягає в тому, щоб розпізнати, що всередині R представляє TRUE як число 1, а FALSE як число 0. Тому, якщо ми візьмемо суму багатьох TRUE і FALSE, ми отримаємо загальну кількість TRUE.
 
 - Class: cmd_question
-  Output: Let's give that a try here. Call the sum() function on my_na to count the total number of TRUEs in my_na, and thus the total number of NAs in my_data. Don't assign the result to a new variable.
+  Output: Спробуймо це тут. Викличи функцію sum() на my_na, щоб порахувати загальну кількість TRUE в my_na, і таким чином загальну кількість NA в my_data. Не присвоюй результат новій змінній.
   CorrectAnswer: sum(my_na)
   AnswerTests: omnitest(correctExpr='sum(my_na)')
-  Hint: Use sum(my_na) to count the number NAs in the data.
+  Hint: Використай sum(my_na), щоб порахувати кількість NA в даних.
 
 - Class: cmd_question
-  Output: Pretty cool, huh? Finally, let's take a look at the data to convince ourselves that everything 'adds up'. Print my_data to the console.
+  Output: Досить круто, правда? Нарешті, подивимося на дані, щоб переконатися, що все 'сходиться'. Виведи my_data на консоль.
   CorrectAnswer: my_data
   AnswerTests: omnitest(correctExpr='my_data')
-  Hint: Print my_data to the console.
+  Hint: Виведи my_data на консоль.
 
 - Class: cmd_question
-  Output: Now that we've got NAs down pat, let's look at a second type of missing value -- NaN, which stands for 'not a number'. To generate NaN, try dividing (using a forward slash) 0 by 0 now.
+  Output: Тепер, коли ми розібралися з NA, подивимося на другий тип пропущеного значення -- NaN, що означає 'not a number' (не число). Щоб згенерувати NaN, спробуй поділити (використовуючи пряму косу риску) 0 на 0 зараз.
   CorrectAnswer: 0/0
   AnswerTests: omnitest(correctExpr='0/0')
-  Hint: Try 0/0.
+  Hint: Спробуй 0/0.
 
 - Class: cmd_question
-  Output: Let's do one more, just for fun. In R, Inf stands for infinity. What happens if you subtract Inf from Inf?
+  Output: Зробимо ще один, просто для розваги. В R, Inf означає infinity (нескінченність). Що станеться, якщо ти віднімеш Inf від Inf?
   CorrectAnswer: Inf - Inf
   AnswerTests: omnitest(correctExpr='Inf - Inf')
-  Hint: Type Inf - Inf. Can you guess the result?
+  Hint: Набери Inf - Inf. Можеш вгадати результат?
   
 - Class: mult_question
-  Output: Would you like to inform someone about your successful completion of this lesson?
+  Output: Чи хотів би ти повідомити комусь про успішне завершення цього уроку?
   CorrectAnswer: NULL
-  AnswerChoices: Yes; No
+  AnswerChoices: Так; Ні
   AnswerTests: notify()
   Hint: NULL
 
