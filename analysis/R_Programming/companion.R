@@ -21,8 +21,13 @@ library(swirlify) # customization of swirl
 # swirl::uninstall_all_courses()  
 # Path to custom swirl course (шлях до користувацького курсу swirl)
 course_path <- file.path("./swirl-courses/R_Programming_Alt/")
+
+# Uninstall all previously installed Swirl course (CAREFUL!!)
+swirl::uninstall_all_courses()
 # Install and load the custom course (встановлення та завантаження курсу)
 swirl::install_course_directory(course_path)
+# NOTE - when you use
+# swirl::install_coure("R_Programming_Alt")
 
 # ---- load-data ---------------------------------------------------------------
 
