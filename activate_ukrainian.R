@@ -64,7 +64,8 @@ activate <- function(demo = FALSE, test = FALSE) {
       test_title = "\n🧪 TESTING\n",
       finish_ua = "\n🎉 UKRAINIAN LANGUAGE ACTIVATED! 🎉\n",
       swirl_start = "📚 Now run swirl() to start a course:\n\n    swirl()\n\n",
-      commands = "💡 Useful commands:\n    activate_ukrainian_phrases_only()     # activate only Ukrainian phrases\n    activate_ukrainian_full_translation() # activate full Ukrainian translation\n    deactivate_ukrainian_translation()    # revert to standard English swirl\n    check_ukrainian_status()              # check translation status\n    quick_activate()                      # quick activation\n    quick_test()                          # quick phrase test\n    activate_ukrainian(demo=TRUE)         # show demo\n\n🚀 To start swirl, run:\n    swirl()\n\n"
+      commands = "💡 Useful commands:\n    activate_ukrainian_phrases_only()     # activate only Ukrainian phrases\n    activate_ukrainian_full_translation() # activate full Ukrainian translation\n    deactivate_ukrainian_translation()    # revert to standard English swirl\n    check_ukrainian_status()              # check translation status\n    quick_activate()                      # quick activation\n    quick_test()                          # quick phrase test\n    activate_ukrainian(demo=TRUE)         # show demo\n\n🚀 To start swirl, run:\n    swirl()\n\n",
+      swirl_run_prompt = "\nRun swirl now?\n1) Yes\n2) No\n"
     )
   } else {
     L <- list(
@@ -117,7 +118,8 @@ activate <- function(demo = FALSE, test = FALSE) {
       test_title = "\n🧪 ТЕСТУВАННЯ / TESTING\n",
       finish_ua = "\n🎉 УКРАЇНСЬКА МОВА АКТИВОВАНА! 🎉\n",
       swirl_start = "📚 Тепер запусти swirl() для початку курсу:\n\n    swirl()\n\n",
-      commands = "💡 Корисні команди:\n    activate_ukrainian_phrases_only()     # активувати тільки українські фрази\n    activate_ukrainian_full_translation() # активувати повну українізацію\n    deactivate_ukrainian_translation()    # повернути стандартний англійський swirl\n    check_ukrainian_status()              # перевірити статус перекладу\n    quick_activate()                      # швидка активація\n    quick_test()                          # швидкий тест фраз\n    activate_ukrainian(demo=TRUE)         # показати демо\n\n🚀 Для старту swirl виконайте:\n    swirl()\n\n"
+      commands = "💡 Корисні команди:\n    activate_ukrainian_phrases_only()     # активувати тільки українські фрази\n    activate_ukrainian_full_translation() # активувати повну українізацію\n    deactivate_ukrainian_translation()    # повернути стандартний англійський swirl\n    check_ukrainian_status()              # перевірити статус перекладу\n    quick_activate()                      # швидка активація\n    quick_test()                          # швидкий тест фраз\n    activate_ukrainian(demo=TRUE)         # показати демо\n\n🚀 Для старту swirl виконайте:\n    swirl()\n\n",
+      swirl_run_prompt = "\nЗапустити swirl?\n1) Так\n2) Ні\n"
     )
   }
   
@@ -357,6 +359,15 @@ activate <- function(demo = FALSE, test = FALSE) {
   cat(L$finish_ua)
   cat(L$swirl_start)
   cat(L$commands)
+  
+  # --- Prompt to run swirl ---
+  cat(L$swirl_run_prompt)
+  swirl_run_choice <- readline(L$enter_choice)
+  if (swirl_run_choice == "1" || swirl_run_choice == 1) {
+    swirl()
+  } else {
+    cat(ifelse(lang_choice=="2", "You can run swirl() later to start.", "Ви можете виконати swirl() пізніше для старту.\n"))
+  }
   
   invisible(TRUE)
 }
