@@ -2,10 +2,20 @@
 # MAIN FILE FOR ACTIVATING UKRAINIAN LANGUAGE IN SWIRL
 
 # ==============================================================================
-# ФУНКЦІЯ АКТИВАЦІЇ УКРАЇНСЬКОЇ МОВИ / UKRAINIAN ACTIVATION FUNCTION
+# Глобальний прапорець, щоб активація була лише один раз за сесію
 # ==============================================================================
 
+.swirl_ua_session_started <- FALSE # створюємо глобальний прапорець
+
 activate <- function(demo = FALSE, test = FALSE) {
+  # --- Якщо активація вже проведена в цій сесії, запускаємо swirl без меню ---
+  if (exists(".swirl_ua_session_started", envir = .GlobalEnv) &&
+      get(".swirl_ua_session_started", envir = .GlobalEnv)) {
+    cat("Активація вже проведена. Просто запускаємо swirl.\n")
+    swirl()
+    return(invisible(TRUE))
+  }
+  
   # --- Language selection ---
   cat("Interface language?\n")
   cat("1) Українська\n")
@@ -15,6 +25,7 @@ activate <- function(demo = FALSE, test = FALSE) {
   # Set labels according to language
   if (lang_choice == "2") {
     L <- list(
+      lang_choice = "2",
       start = "🇺🇦 Activating Ukrainian language for swirl... 🇺🇦\n\n",
       delete_prompt = "Do you want to remove local swirl courses?\n",
       yes = "1) Yes\n",
@@ -69,6 +80,7 @@ activate <- function(demo = FALSE, test = FALSE) {
     )
   } else {
     L <- list(
+      lang_choice = "1",
       start = "🇺🇦 Активація української мови для swirl... 🇺🇦\n\n",
       delete_prompt = "Бажаєте видалити локальні курси swirl?\n",
       yes = "1) Так\n",
@@ -360,13 +372,22 @@ activate <- function(demo = FALSE, test = FALSE) {
   cat(L$swirl_start)
   cat(L$commands)
   
+  # --- Помічаємо, що активація завершена ---
+  assign(".swirl_ua_session_started", TRUE, envir = .GlobalEnv)
+  
   # --- Prompt to run swirl ---
-  cat(L$swirl_run_prompt)
-  swirl_run_choice <- readline(L$enter_choice)
-  if (swirl_run_choice == "1" || swirl_run_choice == 1) {
-    swirl()
-  } else {
-    cat(ifelse(lang_choice=="2", "You can run swirl() later to start.", "Ви можете виконати swirl() пізніше для старту.\n"))
+  repeat {
+    cat(L$swirl_run_prompt)
+    swirl_run_choice <- readline(L$enter_choice)
+    if (swirl_run_choice == "1" || swirl_run_choice == 1) {
+      swirl()
+      break
+    } else if (swirl_run_choice == "2" || swirl_run_choice == 2) {
+      cat(ifelse(lang_choice=="2", "You can run swirl() later to start.", "Ви можете виконати swirl() пізніше для старту.\n"))
+      break
+    } else {
+      cat(L$invalid)
+    }
   }
   
   invisible(TRUE)
@@ -395,12 +416,13 @@ activate_ukrainian_full_translation <- function() {
 }
 
 deactivate_ukrainian_translation <- function() {
-  # Deactivate Ukrainian translation for swirl (restores English interface)
+  # Скидає прапорець, щоб можна було провести активацію заново
+  assign(".swirl_ua_session_started", FALSE, envir = .GlobalEnv)
+  # Деактивація української локалізації
   if (!"swirl" %in% loadedNamespaces()) {
     cat("❌ swirl package is not loaded.\n")
     return(invisible(FALSE))
   }
-  # Try to detach and reload swirl to restore original functions
   try({
     detach("package:swirl", unload = TRUE)
     suppressPackageStartupMessages(library(swirl))
@@ -410,7 +432,6 @@ deactivate_ukrainian_translation <- function() {
   }, silent = TRUE)
   invisible(TRUE)
 }
-
 
 check_ukrainian_status <- function() {
   if (!"swirl" %in% loadedNamespaces()) {
@@ -431,7 +452,7 @@ check_ukrainian_status <- function() {
 }
 
 quick_activate <- function() {
-  if (!require("swirl", quietly = TRUE)) {
+  if (!requireNamespace("swirl", quietly = TRUE)) {
     install.packages("swirl")
     library(swirl)
   } else {
