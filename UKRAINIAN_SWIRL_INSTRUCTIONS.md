@@ -1,32 +1,115 @@
 # Інструкції по використанню українських фраз у swirl
 # Instructions for using Ukrainian phrases in swirl
 
-## ШВИДКИЙ СТАРТ / QUICK START
+## Старт / Start
 
-### Варіант 1: Автоматичний (рекомендовано)
+### Підготовка / Preparation 
+#### Встановлюємо пакет `swirl` (Installation `swirl` package)
+```r
+install.packages("swirl") # тільки 1 раз, потім просто використовуємо 
+```
+#### Активація `swirl()`
+```r
+library(swirl)
+```
+### Крок 1 / Step 1
 ```r
 # Запусти цей скрипт в R:
-source("setup_ukrainian_swirl.R")
-# Потім запусти swirl:
-swirl()
+source("activate_ukrainian.R")
 ```
 
-### Варіант 2: Покроковий
+### Крок 2 / Step 2
 ```r
-# 1. Завантаж swirl
-library(swirl)
-
-# 2. Завантаж українські фрази
-source("ukrainian_phrases.R")
-
-# 3. Активуй українські фрази
-activate_ukrainian_phrases()
-
-# 4. Запусти swirl
-swirl()
+# Запусти цю функцію в R:
+activate()
 ```
 
-## ДЕТАЛЬНИЙ ОПИС
+### Крок 3 / Step 3
+
+#### Обери мову інтерфейсу: 
+```r
+Interface language?
+1) Українська
+2) English
+```
+Натисни 1 для Української та 2 для Англійської
+
+### Крок 4 / Step 4
+
+#### Видалення курсів (опціонально)
+```r
+Бажаєте видалити локальні курси swirl?
+1) Так
+2) Ні, продовжити
+```
+Обери 1 для того щоб видалити курс з наявних або 2 щоб продовжити налаштування
+
+### Крок 5 / Step 5
+
+#### Встановлення курсів (опціонально)
+```r
+Чи бажаєте встановити локальний курс swirl?
+1) Так
+2) Ні, продовжити
+3) Встановити рандомний курс
+```
+Обери 1 для того щоб встановити курс (детальніше далі), 2 для того щоб продовжити та 3 для того щоб встановити випадковий курс з наявних
+
+### Крок 5.1 / Step 5.1
+
+#### Встановлення курсів (опціонально)
+```r
+ℹ️ Доступні курси з папки swirl-courses:
+1) Data_Analysis
+2) ErrFind
+3) Exploratory_Data_Analysis
+4) Getting_and_Cleaning_Data
+5) Mathematical_Biostatistics_Boot_Camp
+6) Open_Intro
+7) R_Programming
+8) R_Programming_Alt
+9) Regression_Models
+10) Statistical_Inference
+11) Writing_swirl_Courses
+12) Ввести назву вручну
+13) Встановити рандомний курс
+Оберіть курс для встановлення за номером, 12 для ручного вводу, або 13 для рандомного курсу:
+```
+Тут тобі видно всі курси що знаходяться в папці `swirl-courses/`
+
+### Крок 6 / Step 6
+
+#### Вибір перекладу 
+```r
+Яку версію перекладу бажаєте активувати?
+1) Тільки українські фрази (ukrainian_phrases_only)
+2) Повна українізація (ukrainian_full_translation)
+3) Залишити оригінал (без перекладу)
+```
+Обери версію для перекладу, натиснувши 1,2 або 3 (оригінальна версія `swirl()`)
+
+### Крок 7 / Step 7
+
+#### Навчайся!!!
+```r
+swirl() # запусти це в консолі 
+```
+
+## Корисні поради та команди 
+
+### Команди 
+```r
+    activate_ukrainian_phrases_only()     # активувати тільки українські фрази
+    activate_ukrainian_full_translation() # активувати повну українізацію
+    deactivate_ukrainian_translation()    # повернути стандартний англійський swirl
+    check_ukrainian_status()              # перевірити статус перекладу
+    quick_activate()                      # швидка активація
+    quick_test()                          # швидкий тест фраз
+    activate_ukrainian(demo=TRUE)         # показати демо
+```
+### Поради 
+- Якщо активував переклад українських фраз, проте хочеш активувати повний переклад то слід спершу дективувати переклад `deactivate_ukrainian_translation()`, а вже потім активувати одну з функцій `activate_ukrainian_full_translation()` або `activate_ukrainian_phrases_only()`
+- `quick_activate()` ативує повний переклад українською 
 
 ### Що робить система?
 
@@ -50,34 +133,6 @@ swirl()
 - "Дай цьому ще один шанс."
 - "Ще один раз. Ти можеш це зробити!"
 
-## КОРИСНІ КОМАНДИ
-
-### Тестування фраз (без запуску swirl):
-```r
-source("ukrainian_phrases.R")
-test_ukrainian_phrases()
-```
-
-### Активація українських фраз:
-```r
-library(swirl)
-source("ukrainian_phrases.R")
-activate_ukrainian_phrases()
-```
-
-### Деактивація (повернення до англійських):
-```r
-deactivate_ukrainian_phrases()
-```
-
-### Перевірка чи активні українські фрази:
-```r
-# Запусти swirl і подивися на повідомлення
-# або протестуй функції напряму:
-praise_ua()  # має показати українську фразу
-tryAgain_ua()  # має показати українську фразу
-```
-
 ## ТЕХНІЧНІ ДЕТАЛІ
 
 ### Як це працює?
@@ -100,27 +155,28 @@ tryAgain_ua()  # має показати українську фразу
 ### Помилка "swirl не завантажений":
 ```r
 library(swirl)
-source("ukrainian_phrases.R")
-activate_ukrainian_phrases()
+source("activate_ukrainian.R")
+quick_activate()
 ```
 
 ### Фрази не змінилися:
 ```r
 # Перевір чи активовано:
-activate_ukrainian_phrases()
+activate_ukrainian_phrases_only() або activate_ukrainian_full_translation()
 # Або перезапусти R і спробуй знову
 ```
 
 ### Повернення до англійських фраз:
 ```r
-deactivate_ukrainian_phrases()
+deactivate_ukrainian_translation()
 # або просто перезапусти R
 ```
 
 ## ФАЙЛИ СИСТЕМИ
 
 - `ukrainian_phrases.R` - основні функції та фрази
-- `setup_ukrainian_swirl.R` - скрипт автоматичного налаштування  
+- `full_ukrainian_swirl.R` - переклад інтерфейсу swirl
+- `activate_ukainian.R` - скрипт налаштування  
 - `UKRAINIAN_SWIRL_INSTRUCTIONS.md` - цей файл інструкцій
 
 ## РОЗШИРЕННЯ СИСТЕМИ
