@@ -557,7 +557,7 @@ activate <- function(demo = FALSE, test = FALSE) {
   
   # --- Clean up activation functions from global environment ---
   tryCatch({
-    rm(list = c("update_course", "update_course_en"), envir = .GlobalEnv)
+    rm(list = c( "update_course_en"), envir = .GlobalEnv)
   }, error = function(e) {
     # Ignore errors if functions don't exist
   })
@@ -880,7 +880,10 @@ install_course_interactive <- function(local_course_dir = "swirl-courses") {
     
     if (course_choice == n_return) break
     
-    next_action <- readline("Що далі? 1) Встановити ще курс 2) Вийти / What next? 1) Install another course 2) Exit: ")
+    cat("Що далі? / What next?\n")
+    cat("1) Встановити ще курс / Install another course\n")
+    cat("2) Вийти / Exit\n")
+    next_action <- readline("Ваш вибір / Your choice: ")
     if (next_action == "2") break
   }
   
@@ -923,13 +926,16 @@ delete_course_interactive <- function() {
     
     if (course_choice >= 1 && course_choice <= length(courses)) {
       course_name <- basename(courses[course_choice])
-      confirm <- readline(sprintf("Дійсно видалити курс '%s'? (y/N) / Really delete course '%s'? (y/N): ", course_name, course_name))
-      if (tolower(confirm) %in% c("y", "yes", "так", "т")) {
+      
+      cat(sprintf("🗑️ Видаляємо курс '%s' / Removing course '%s'...\n", course_name, course_name))
+      
+      tryCatch({
         unlink(courses[course_choice], recursive = TRUE, force = TRUE)
-        cat(sprintf("🗑️ Видалено курс / Removed course: %s\n", course_name))
-      } else {
-        cat("⏩ Скасовано / Cancelled.\n")
-      }
+        cat(sprintf("✅ Курс '%s' успішно видалено / Course '%s' successfully removed\n", course_name, course_name))
+      }, error = function(e) {
+        cat(sprintf("❌ Помилка видалення курсу '%s': %s / Error removing course '%s': %s\n", 
+                    course_name, e$message, course_name, e$message))
+      })
     } else {
       cat("⛔ Невірний вибір. Спробуйте ще раз / Invalid choice. Try again.\n")
     }
