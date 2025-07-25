@@ -1,6 +1,11 @@
 # ПОВНА УКРАЇНСЬКА ЛОКАЛІЗАЦІЯ SWIRL
 # COMPLETE UKRAINIAN LOCALIZATION FOR SWIRL
 
+# Тихий режим
+.quiet_mode_full <- tryCatch({
+  exists(".quiet_mode_full", envir = .GlobalEnv) && get(".quiet_mode_full", envir = .GlobalEnv)
+}, error = function(e) FALSE)
+
 # ==============================================================================
 # ФУНКЦІЇ ПЕРЕКЛАДУ / TRANSLATION FUNCTIONS
 # ==============================================================================
@@ -215,7 +220,7 @@ s_ua <- function() {
   }
 }
 
-# Створюємо оператор для україзації
+# Створюємо оператор для українізації
 "%N%" <- function(f, text) {
   if (identical(f, s_ua())) {
     return(f(text))
@@ -228,17 +233,25 @@ s_ua <- function() {
 # ФУНКЦІЯ АКТИВАЦІЇ ПОВНОЇ УКРАЇНІЗАЦІЇ / FULL UKRAINIZATION ACTIVATION
 # ==============================================================================
 
-full_ukrainian_swirl_activate <- function() {
+full_ukrainian_swirl_activate <- function(quiet = .quiet_mode_full) {
   if (!requireNamespace("swirl", quietly = TRUE)) {
     stop("Пакет swirl не встановлений! / Package swirl is not installed!")
   }
   
-  cat("🇺🇦 АКТИВУЄМО ПОВНУ УКРАЇНІЗАЦІЮ SWIRL...\n")
-  cat("🇺🇦 ACTIVATING FULL SWIRL UKRAINIZATION...\n\n")
+  if (!quiet) {
+    cat("🇺🇦 АКТИВУЄМО ПОВНУ УКРАЇНІЗАЦІЮ SWIRL...\n")
+    cat("🇺🇦 ACTIVATING FULL SWIRL UKRAINIZATION...\n\n")
+  }
   
-  # Замінюємо функції похвали та "спробуй ще раз"
-  source("ukrainian_phrases.R", local = TRUE)
-  ukrainian_phrases_activate()
+  # Спочатку активуємо українські фрази
+  if (exists("ukrainian_phrases_activate")) {
+    ukrainian_phrases_activate(quiet = TRUE)
+  } else {
+    # Встановлюємо тихий режим перед завантаженням
+    assign(".quiet_mode", TRUE, envir = .GlobalEnv)
+    source("ukrainian_phrases.R", local = TRUE)
+    ukrainian_phrases_activate(quiet = TRUE)
+  }
   
   # Замінюємо функцію локалізації
   try(assignInNamespace("s", s_ua, ns="swirl"), silent = TRUE)
@@ -267,25 +280,44 @@ full_ukrainian_swirl_activate <- function() {
     assignInNamespace("readline", ukrainian_readline, ns="base")
   }, silent = TRUE)
   
-  # ==============================================================================
-  # ФУНКЦІЯ ДЕАКТИВАЦІЇ / DEACTIVATION FUNCTION
-  # ==============================================================================
-ukrainian_swirl_deactivate <- function() {
-  cat("🔄 ДЕАКТИВУЄМО УКРАЇНІЗАЦІЮ...\n")
-  cat("🔄 DEACTIVATING UKRAINIZATION...\n\n")
-  try({
-    unloadNamespace("swirl")
-    library(swirl)
-  }, silent = TRUE)
-  cat("✅ Повернулися до англійської версії\n")
-  cat("✅ Returned to English version\n\n")
-  invisible(TRUE)
-}
-  cat("✅ Українізація активована!\n")
-  cat("✅ Ukrainization activated!\n\n")
-  cat("Тепер можеш запустити: swirl()\n")
-  cat("Now you can run: swirl()\n\n")
+  if (!quiet) {
+    cat("✅ Українізація активована!\n")
+    cat("✅ Ukrainization activated!\n\n")
+    cat("Тепер можеш запустити: swirl()\n")
+    cat("Now you can run: swirl()\n\n")
+  }
   
   invisible(TRUE)
 }
 
+# ==============================================================================
+# ФУНКЦІЯ ДЕАКТИВАЦІЇ / DEACTIVATION FUNCTION
+# ==============================================================================
+full_ukrainian_swirl_deactivate <- function(quiet = .quiet_mode_full) {
+  if (!quiet) {
+    cat("🔄 ДЕАКТИВУЄМО УКРАЇНІЗАЦІЮ...\n")
+    cat("🔄 DEACTIVATING UKRAINIZATION...\n\n")
+  }
+  
+  # Деактивуємо українські фрази
+  if (exists("deactivate_ukrainian_phrases")) {
+    deactivate_ukrainian_phrases(quiet = quiet)
+  }
+  
+  try({
+    unloadNamespace("swirl")
+    suppressPackageStartupMessages(library(swirl))
+  }, silent = TRUE)
+  
+  if (!quiet) {
+    cat("✅ Повернулися до англійської версії\n")
+    cat("✅ Returned to English version\n\n")
+  }
+  
+  invisible(TRUE)
+}
+
+# Автоматичні повідомлення тільки якщо не в тихому режимі
+if (!.quiet_mode_full) {
+  full_ukrainian_swirl_activate(quiet = FALSE)
+}
