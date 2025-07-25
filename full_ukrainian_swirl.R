@@ -228,7 +228,7 @@ s_ua <- function() {
 # ФУНКЦІЯ АКТИВАЦІЇ ПОВНОЇ УКРАЇНІЗАЦІЇ / FULL UKRAINIZATION ACTIVATION
 # ==============================================================================
 
-activate_full_ukrainian_swirl <- function() {
+full_ukrainian_swirl_activate <- function() {
   if (!requireNamespace("swirl", quietly = TRUE)) {
     stop("Пакет swirl не встановлений! / Package swirl is not installed!")
   }
@@ -238,7 +238,7 @@ activate_full_ukrainian_swirl <- function() {
   
   # Замінюємо функції похвали та "спробуй ще раз"
   source("ukrainian_phrases.R", local = TRUE)
-  activate_ukrainian_phrases()
+  ukrainian_phrases_activate()
   
   # Замінюємо функцію локалізації
   try(assignInNamespace("s", s_ua, ns="swirl"), silent = TRUE)
@@ -267,6 +267,20 @@ activate_full_ukrainian_swirl <- function() {
     assignInNamespace("readline", ukrainian_readline, ns="base")
   }, silent = TRUE)
   
+  # ==============================================================================
+  # ФУНКЦІЯ ДЕАКТИВАЦІЇ / DEACTIVATION FUNCTION
+  # ==============================================================================
+ukrainian_swirl_deactivate <- function() {
+  cat("🔄 ДЕАКТИВУЄМО УКРАЇНІЗАЦІЮ...\n")
+  cat("🔄 DEACTIVATING UKRAINIZATION...\n\n")
+  try({
+    unloadNamespace("swirl")
+    library(swirl)
+  }, silent = TRUE)
+  cat("✅ Повернулися до англійської версії\n")
+  cat("✅ Returned to English version\n\n")
+  invisible(TRUE)
+}
   cat("✅ Українізація активована!\n")
   cat("✅ Ukrainization activated!\n\n")
   cat("Тепер можеш запустити: swirl()\n")
@@ -275,30 +289,3 @@ activate_full_ukrainian_swirl <- function() {
   invisible(TRUE)
 }
 
-# ==============================================================================
-# ФУНКЦІЯ ДЕАКТИВАЦІЇ / DEACTIVATION FUNCTION
-# ==============================================================================
-
-deactivate_ukrainian_swirl <- function() {
-  cat("🔄 ДЕАКТИВУЄМО УКРАЇНІЗАЦІЮ...\n")
-  cat("🔄 DEACTIVATING UKRAINIZATION...\n\n")
-  
-  # Перезавантажуємо swirl namespace
-  try({
-    unloadNamespace("swirl")
-    library(swirl)
-  }, silent = TRUE)
-  
-  cat("✅ Повернулися до англійської версії\n")
-  cat("✅ Returned to English version\n\n")
-  
-  invisible(TRUE)
-}
-
-cat("📁 Файл повної українізації завантажено!\n")
-cat("📁 Full ukrainization file loaded!\n\n")
-cat("Використовуй:\n")
-cat("Use:\n")
-cat("activate_full_ukrainian_swirl()   # Повна українізація\n")
-cat("deactivate_ukrainian_swirl()      # Повернення до англійської\n")
-cat("activate_ukrainian_phrases()      # Тільки фрази похвали/помилок\n")
