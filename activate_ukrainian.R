@@ -1,255 +1,424 @@
 # ГОЛОВНИЙ ФАЙЛ ДЛЯ АКТИВАЦІЇ УКРАЇНСЬКОЇ МОВИ В SWIRL
 # MAIN FILE FOR ACTIVATING UKRAINIAN LANGUAGE IN SWIRL
-#
-# Цей файл є єдиною точкою входу для активації української мови
-# This file is the single entry point for activating Ukrainian language
 
 # ==============================================================================
 # ФУНКЦІЯ АКТИВАЦІЇ УКРАЇНСЬКОЇ МОВИ / UKRAINIAN ACTIVATION FUNCTION
 # ==============================================================================
 
-activate_ukrainian <- function(demo = FALSE, test = FALSE) {
-  cat("🇺🇦 Активація української мови для swirl... 🇺🇦\n")
-  cat("🇺🇦 Activating Ukrainian language for swirl... 🇺🇦\n\n")
+activate <- function(demo = FALSE, test = FALSE) {
+  # --- Language selection ---
+  cat("Interface language?\n")
+  cat("1) Українська\n")
+  cat("2) English\n")
+  lang_choice <- readline("Enter number (1/2) and press ENTER: ")
   
-  # Крок 1: Перевірка та встановлення swirl
-  if (!require("swirl", quietly = TRUE)) {
-    cat("📦 Встановлюю пакет swirl...\n")
-    cat("📦 Installing swirl package...\n")
-    install.packages("swirl")
-    library(swirl)
+  # Set labels according to language
+  if (lang_choice == "2") {
+    L <- list(
+      start = "🇺🇦 Activating Ukrainian language for swirl... 🇺🇦\n\n",
+      delete_prompt = "Do you want to remove local swirl courses?\n",
+      yes = "1) Yes\n",
+      no_continue = "2) No, continue\n",
+      enter_choice = "Enter number (1/2) and press ENTER: ",
+      no_courses = "ℹ️ No local courses found.\n",
+      select_delete = "\nSelect a course to remove:\n",
+      continue = "Continue",
+      deleted = "  🗑️ Removed course: ",
+      invalid = "⛔ Invalid choice. Try again.\n",
+      skip_delete = "⏩ Skipped course removal.\n",
+      install_prompt = "\nDo you want to install a local swirl course?\n",
+      yes_install = "1) Yes\n",
+      no_install = "2) No, continue\n",
+      random_install = "3) Install a random course\n",
+      available_courses = "\nℹ️ Available courses from swirl-courses folder:\n",
+      enter_number_or_manual = "Select a course number to install, %d for manual input, or %d for random course: ",
+      manual_course = "Enter course name (name_of_course): ",
+      random_course = "Install a random course",
+      not_found = "No local courses found. Enter course name manually (name_of_course): ",
+      not_found_folder = "No local swirl-courses folder found. Enter course name manually (name_of_course): ",
+      installing = "\nℹ️ Installing course from directory: ",
+      installed = "✓ Course '%s' successfully installed and loaded!\n",
+      not_exist = "❌ Course directory '%s' does not exist!\n",
+      install_next = "\nWhat would you like to do next?\n1) Install another course\n2) Continue\n",
+      packages_missing = "\n❗ Required packages not installed:\n   ",
+      packages_action = "Choose an action:\n1) Install packages\n2) Continue without installing\n",
+      packages_install_cmd = "\n📦 To install packages, run:\ninstall.packages(c(%s))\n",
+      packages_next = "Type 'next()' after finishing package installation: ",
+      packages_success = "✓ All required packages installed!\n",
+      packages_skipped = "⚠️ Continuing without installing swirl packages.\nSome features may be unavailable.\n",
+      swirl_loaded = "✓ swirl package loaded\n",
+      swirl_not_installed = "❌ swirl package not installed, cannot continue!\n",
+      translation_choose = "\nWhich translation version do you want to activate?\n1) Ukrainian phrases only\n2) Full Ukrainian translation\n3) Keep original (no translation)\n",
+      translation_enter = "Enter number (1/2/3) and press ENTER: ",
+      only_phrases = "\n🔄 Activating only Ukrainian phrases...\n",
+      only_phrases_ok = "✓ Ukrainian phrases activated!\n",
+      only_phrases_fail = "❌ Error activating Ukrainian phrases: ",
+      full_translation = "\n🔄 Activating full Ukrainian translation...\n",
+      full_translation_ok = "✓ Full Ukrainian translation activated!\n",
+      full_translation_fail = "❌ Error activating full Ukrainian translation: ",
+      keep_original = "\n⏩ Kept original swirl phrases and interface.\n",
+      demo_title = "\n📋 PHRASES DEMONSTRATION\n",
+      demo_sep = paste(rep("-", 50), collapse=""),
+      demo_praise = "Praise phrases:\n",
+      demo_try_again = "\nTry again phrases:\n",
+      test_title = "\n🧪 TESTING\n",
+      finish_ua = "\n🎉 UKRAINIAN LANGUAGE ACTIVATED! 🎉\n",
+      swirl_start = "📚 Now run swirl() to start a course:\n\n    swirl()\n\n",
+      commands = "💡 Useful commands:\n    activate_ukrainian_phrases_only()     # activate only Ukrainian phrases\n    activate_ukrainian_full_translation() # activate full Ukrainian translation\n    deactivate_ukrainian_translation()    # revert to standard English swirl\n    check_ukrainian_status()              # check translation status\n    quick_activate()                      # quick activation\n    quick_test()                          # quick phrase test\n    activate_ukrainian(demo=TRUE)         # show demo\n\n🚀 To start swirl, run:\n    swirl()\n\n"
+    )
   } else {
-    library(swirl)
-    cat("✓ Пакет swirl завантажено\n")
-    cat("✓ swirl package loaded\n")
+    L <- list(
+      start = "🇺🇦 Активація української мови для swirl... 🇺🇦\n\n",
+      delete_prompt = "Бажаєте видалити локальні курси swirl?\n",
+      yes = "1) Так\n",
+      no_continue = "2) Ні, продовжити\n",
+      enter_choice = "Введіть номер (1/2) та натисніть ENTER: ",
+      no_courses = "ℹ️ Локальні курси не знайдено.\n",
+      select_delete = "\nОберіть курс для видалення:\n",
+      continue = "Продовжити",
+      deleted = "  🗑️ Видалено курс: ",
+      invalid = "⛔ Невірний вибір. Спробуйте ще раз.\n",
+      skip_delete = "⏩ Пропущено видалення курсів.\n",
+      install_prompt = "\nЧи бажаєте встановити локальний курс swirl?\n",
+      yes_install = "1) Так\n",
+      no_install = "2) Ні, продовжити\n",
+      random_install = "3) Встановити рандомний курс\n",
+      available_courses = "\nℹ️ Доступні курси з папки swirl-courses:\n",
+      enter_number_or_manual = "Оберіть курс для встановлення за номером, %d для ручного вводу, або %d для рандомного курсу: ",
+      manual_course = "Введіть назву курсу (name_of_course): ",
+      random_course = "Встановити рандомний курс",
+      not_found = "Не знайдено локальних курсів. Введіть назву курсу вручну (name_of_course): ",
+      not_found_folder = "Не знайдено локальної папки swirl-courses. Введіть назву курсу вручну (name_of_course): ",
+      installing = "\nℹ️ Встановлюю курс із директорії: ",
+      installed = "✓ Курс '%s' успішно встановлено і завантажено!\n",
+      not_exist = "❌ Директорія курсу '%s' не існує!\n",
+      install_next = "\nЩо бажаєте зробити далі?\n1) Встановити ще курс\n2) Продовжити\n",
+      packages_missing = "\n❗ Необхідні пакети не встановлені:\n   ",
+      packages_action = "Виберіть дію:\n1) Встановити пакети\n2) Продовжити без встановлення\n",
+      packages_install_cmd = "\n📦 Для встановлення пакетів виконайте:\ninstall.packages(c(%s))\n",
+      packages_next = "Введіть 'next()' після завершення встановлення пакетів: ",
+      packages_success = "✓ Всі необхідні пакети встановлені!\n",
+      packages_skipped = "⚠️ Ви продовжили без встановлення пакетів swirl.\nДеякі функції можуть бути недоступні.\n",
+      swirl_loaded = "✓ Пакет swirl завантажено\n",
+      swirl_not_installed = "❌ Пакет swirl не встановлений, не можу продовжити!\n",
+      translation_choose = "\nЯку версію перекладу бажаєте активувати?\n1) Тільки українські фрази (ukrainian_phrases_only)\n2) Повна українізація (ukrainian_full_translation)\n3) Залишити оригінал (без перекладу)\n",
+      translation_enter = "Введіть номер (1/2/3) та натисніть ENTER: ",
+      only_phrases = "\n🔄 Активую тільки українські фрази...\n",
+      only_phrases_ok = "✓ Українські фрази активовано!\n",
+      only_phrases_fail = "❌ Помилка активації українських фраз: ",
+      full_translation = "\n🔄 Активую повну українізацію...\n",
+      full_translation_ok = "✓ Повна українізація активована!\n",
+      full_translation_fail = "❌ Помилка активації повної українізації: ",
+      keep_original = "\n⏩ Залишено оригінальні фрази та інтерфейс swirl.\n",
+      demo_title = "\n📋 ДЕМОНСТРАЦІЯ ФРАЗ / PHRASES DEMONSTRATION\n",
+      demo_sep = paste(rep("-", 50), collapse=""),
+      demo_praise = "Фрази похвали (Praise phrases):\n",
+      demo_try_again = "\nФрази 'спробуй ще раз' (Try again phrases):\n",
+      test_title = "\n🧪 ТЕСТУВАННЯ / TESTING\n",
+      finish_ua = "\n🎉 УКРАЇНСЬКА МОВА АКТИВОВАНА! 🎉\n",
+      swirl_start = "📚 Тепер запусти swirl() для початку курсу:\n\n    swirl()\n\n",
+      commands = "💡 Корисні команди:\n    activate_ukrainian_phrases_only()     # активувати тільки українські фрази\n    activate_ukrainian_full_translation() # активувати повну українізацію\n    deactivate_ukrainian_translation()    # повернути стандартний англійський swirl\n    check_ukrainian_status()              # перевірити статус перекладу\n    quick_activate()                      # швидка активація\n    quick_test()                          # швидкий тест фраз\n    activate_ukrainian(demo=TRUE)         # показати демо\n\n🚀 Для старту swirl виконайте:\n    swirl()\n\n"
+    )
   }
   
-  # Крок 2: Завантаження українських фраз
-  cat("📝 Завантажую українські фрази...\n")
-  cat("📝 Loading Ukrainian phrases...\n")
+  cat(L$start)
+  # --- Remove courses ---
+  cat(L$delete_prompt)
+  cat(L$yes)
+  cat(L$no_continue)
+  del_choice <- readline(L$enter_choice)
   
-  tryCatch({
-    source("ukrainian_phrases.R")
-    cat("✓ Українські фрази завантажено\n")
-    cat("✓ Ukrainian phrases loaded\n")
-  }, error = function(e) {
-    stop("❌ Помилка завантаження файлу ukrainian_phrases.R: ", e$message)
-  })
-  
-  # Додатково: Завантаження повної українізації, якщо файл існує
-  if (file.exists("full_ukrainian_swirl.R")) {
-    cat("📝 Завантажую додаткові фрази з full_ukrainian_swirl.R...\n")
-    tryCatch({
-      source("full_ukrainian_swirl.R")
-      cat("✓ Додаткові фрази завантажено (full_ukrainian_swirl.R)\n")
-    }, error = function(e) {
-      cat("⚠️ Не вдалося завантажити full_ukrainian_swirl.R: ", e$message, "\n")
-    })
-  }
-  
-  # Крок 3: Активація фраз
-  cat("🔄 Активую українські фрази...\n")
-  cat("🔄 Activating Ukrainian phrases...\n")
-  
-  tryCatch({
-    activate_ukrainian_phrases()
-    # Якщо є функція повної українізації, активувати також
-    if (exists("activate_full_ukrainian_swirl")) {
-      activate_full_ukrainian_swirl()
-      cat("✓ Повна українізація активована (full_ukrainian_swirl.R)\n")
-    }
-  }, error = function(e) {
-    stop("❌ Помилка активації українських фраз: ", e$message)
-  })
-  
-  # Крок 4: Демонстрація (якщо запитано)
-  if (demo) {
-    cat("\n📋 ДЕМОНСТРАЦІЯ ФРАЗ / PHRASES DEMONSTRATION\n")
-    cat(paste(rep("-", 50), collapse=""), "\n")
-    cat("Фрази похвали (Praise phrases):\n")
-    for(i in 1:3) {
-      cat("  ✓", praise_ua(), "\n")
-    }
-    cat("\nФрази 'спробуй ще раз' (Try again phrases):\n")
-    for(i in 1:3) {
-      cat("  ↻", tryAgain_ua(), "\n")
-    }
-    cat(paste(rep("-", 50), collapse=""), "\n\n")
-  }
-  
-  # Крок 5: Тестування (якщо запитано)
-  if (test) {
-    cat("\n🧪 ТЕСТУВАННЯ / TESTING\n")
-    test_ukrainian_phrases()
-  }
-  
-  # Фінальне повідомлення
-  cat("\n🎉 УКРАЇНСЬКА МОВА АКТИВОВАНА! 🎉\n")
-  cat("🎉 UKRAINIAN LANGUAGE ACTIVATED! 🎉\n\n")
-  cat("📚 Тепер запусти swirl() для початку курсу:\n")
-  cat("📚 Now run swirl() to start a course:\n\n")
-  cat("    swirl()\n\n")
-  cat("💡 Корисні команди (Useful commands):\n")
-  cat("    check_ukrainian_status()  # перевірити статус\n")
-  cat("    deactivate_ukrainian_translation()  # вимкнути будь-яку українізацію\n")
-  cat("    activate_ukrainian(demo=TRUE)  # показати демо\n\n")
-  
-  invisible(TRUE)
-}
-
-# ==============================================================================
-# ФУНКЦІЯ АКТИВАЦІЇ ЛИШЕ УКРАЇНСЬКИХ ФРАЗ / PHRASES-ONLY ACTIVATION FUNCTION
-# ==============================================================================
-activate_ukrainian_phrases_only <- function(demo = FALSE, test = FALSE) {
-  cat("🇺🇦 Активація лише українських фраз для swirl... 🇺🇦\n")
-  cat("🇺🇦 Activating only Ukrainian phrases for swirl... 🇺🇦\n\n")
-  
-  # Крок 1: Перевірка та встановлення swirl
-  if (!require("swirl", quietly = TRUE)) {
-    cat("📦 Встановлюю пакет swirl...\n")
-    cat("📦 Installing swirl package...\n")
-    install.packages("swirl")
-    library(swirl)
+  swirl_courses_dir <- if (exists("swirl_courses_dir", where = asNamespace("swirl"), inherits = FALSE)) {
+    suppressWarnings(swirl:::swirl_courses_dir())
   } else {
-    library(swirl)
-    cat("✓ Пакет swirl завантажено\n")
-    cat("✓ swirl package loaded\n")
+    file.path(Sys.getenv("HOME"), "R", "swirl", "Courses")
   }
   
-  # Крок 2: Завантаження українських фраз
-  cat("📝 Завантажую українські фрази...\n")
-  cat("📝 Loading Ukrainian phrases...\n")
-  
-  tryCatch({
-    source("ukrainian_phrases.R")
-    cat("✓ Українські фрази завантажено\n")
-    cat("✓ Ukrainian phrases loaded\n")
-  }, error = function(e) {
-    stop("❌ Помилка завантаження файлу ukrainian_phrases.R: ", e$message)
-  })
-  
-  # Крок 3: Активація фраз
-  cat("🔄 Активую українські фрази...\n")
-  cat("🔄 Activating Ukrainian phrases...\n")
-  
-  tryCatch({
-    activate_ukrainian_phrases()
-    cat("✓ Українські фрази активовані\n")
-    cat("✓ Ukrainian phrases activated\n")
-  }, error = function(e) {
-    stop("❌ Помилка активації українських фраз: ", e$message)
-  })
-  
-  # Крок 4: Демонстрація (якщо запитано)
-  if (demo) {
-    cat("\n📋 ДЕМОНСТРАЦІЯ ФРАЗ / PHRASES DEMONSTRATION\n")
-    cat(paste(rep("-", 50), collapse=""), "\n")
-    cat("Фрази похвали (Praise phrases):\n")
-    for(i in 1:3) {
-      cat("  ✓", praise_ua(), "\n")
+  if (del_choice == "1" && dir.exists(swirl_courses_dir)) {
+    repeat {
+      courses <- list.dirs(swirl_courses_dir, full.names = TRUE, recursive = FALSE)
+      if (length(courses) == 0) {
+        cat(L$no_courses)
+        break
+      }
+      cat(L$select_delete)
+      for (i in seq_along(courses)) {
+        cat(sprintf("%d) %s\n", i, basename(courses[i])))
+      }
+      cat(sprintf("%d) %s\n", length(courses) + 1, L$continue))
+      course_choice <- suppressWarnings(as.integer(readline(L$enter_choice)))
+      if (is.na(course_choice) || course_choice == (length(courses) + 1)) {
+        break
+      }
+      if (course_choice >= 1 && course_choice <= length(courses)) {
+        unlink(courses[course_choice], recursive = TRUE, force = TRUE)
+        cat(L$deleted, basename(courses[course_choice]), "\n")
+      } else {
+        cat(L$invalid)
+      }
     }
-    cat("\nФрази 'спробуй ще раз' (Try again phrases):\n")
-    for(i in 1:3) {
-      cat("  ↻", tryAgain_ua(), "\n")
+  } else if (del_choice == "2") {
+    cat(L$skip_delete)
+  }
+  
+  # --- Install local course ---
+  cat(L$install_prompt)
+  cat(L$yes_install)
+  cat(L$no_install)
+  cat(L$random_install)
+  inst_choice <- readline(L$enter_choice)
+  
+  if (inst_choice == "1" || inst_choice == 1) {
+    repeat {
+      cat(L$available_courses)
+      local_course_dir <- "swirl-courses"
+      if (dir.exists(local_course_dir)) {
+        course_paths <- list.dirs(local_course_dir, full.names = TRUE, recursive = FALSE)
+        course_names <- basename(course_paths)
+        n_manual <- length(course_names) + 1
+        n_random <- length(course_names) + 2
+        if (length(course_names) > 0) {
+          for (i in seq_along(course_names)) {
+            cat(sprintf("%d) %s\n", i, course_names[i]))
+          }
+          cat(sprintf("%d) %s\n", n_manual, ifelse(lang_choice=="2", "Manual input", "Ввести назву вручну")))
+          cat(sprintf("%d) %s\n", n_random, ifelse(lang_choice=="2", "Install a random course", "Встановити рандомний курс")))
+          course_choice <- suppressWarnings(
+            as.integer(readline(sprintf(L$enter_number_or_manual, n_manual, n_random)))
+          )
+          if (is.na(course_choice)) {
+            cat(L$invalid)
+            next
+          }
+          if (course_choice == n_manual) {
+            chosen_course <- readline(L$manual_course)
+            course_path <- file.path(local_course_dir, chosen_course)
+          } else if (course_choice == n_random) {
+            # Select a random course
+            set.seed(as.integer(Sys.time())) # different each time
+            rand_idx <- sample(seq_along(course_names), 1)
+            course_path <- course_paths[rand_idx]
+            chosen_course <- course_names[rand_idx]
+            cat(ifelse(lang_choice=="2", 
+                       sprintf("Random course selected: %s\n", chosen_course), 
+                       sprintf("Вибрано рандомний курс: %s\n", chosen_course)))
+          } else if (course_choice >= 1 && course_choice <= length(course_names)) {
+            course_path <- course_paths[course_choice]
+            chosen_course <- course_names[course_choice]
+          } else {
+            cat(L$invalid)
+            course_path <- NULL
+          }
+        } else {
+          chosen_course <- readline(L$not_found)
+          course_path <- file.path(local_course_dir, chosen_course)
+        }
+      } else {
+        chosen_course <- readline(L$not_found_folder)
+        course_path <- file.path(local_course_dir, chosen_course)
+      }
+      
+      if (!is.null(course_path) && dir.exists(course_path)) {
+        cat(L$installing, course_path, "\n")
+        tryCatch({
+          swirl::install_course_directory(course_path)
+          cat(sprintf(L$installed, basename(course_path)))
+        }, error = function(e) {
+          cat(sprintf(L$not_exist, course_path), e$message, "\n")
+        })
+      } else if (!is.null(course_path)) {
+        cat(sprintf(L$not_exist, course_path))
+      }
+      
+      next_action <- readline(L$install_next)
+      if (next_action == "2") break
     }
-    cat(paste(rep("-", 50), collapse=""), "\n\n")
+  } else if (inst_choice == "3" || inst_choice == 3) {
+    # Random install shortcut: install a random course immediately
+    local_course_dir <- "swirl-courses"
+    if (dir.exists(local_course_dir)) {
+      course_paths <- list.dirs(local_course_dir, full.names = TRUE, recursive = FALSE)
+      course_names <- basename(course_paths)
+      if (length(course_names) > 0) {
+        set.seed(as.integer(Sys.time()))
+        rand_idx <- sample(seq_along(course_names), 1)
+        course_path <- course_paths[rand_idx]
+        chosen_course <- course_names[rand_idx]
+        cat(ifelse(lang_choice=="2", 
+                   sprintf("Random course selected: %s\n", chosen_course), 
+                   sprintf("Вибрано рандомний курс: %s\n", chosen_course)))
+        if (!is.null(course_path) && dir.exists(course_path)) {
+          cat(L$installing, course_path, "\n")
+          tryCatch({
+            swirl::install_course_directory(course_path)
+            cat(sprintf(L$installed, basename(course_path)))
+          }, error = function(e) {
+            cat(sprintf(L$not_exist, course_path), e$message, "\n")
+          })
+        } else {
+          cat(sprintf(L$not_exist, course_path))
+        }
+      } else {
+        cat(L$not_found)
+      }
+    } else {
+      cat(L$not_found_folder)
+    }
+  } else {
+    cat(L$skip_delete)
   }
   
-  # Крок 5: Тестування (якщо запитано)
-  if (test) {
-    cat("\n🧪 ТЕСТУВАННЯ / TESTING\n")
-    test_ukrainian_phrases()
+  # --- Packages check ---
+  required_pkgs <- c("swirl")
+  missing_pkgs <- required_pkgs[!sapply(required_pkgs, requireNamespace, quietly = TRUE)]
+  if (length(missing_pkgs) > 0) {
+    cat(L$packages_missing, paste(missing_pkgs, collapse = ", "), "\n")
+    cat(L$packages_action)
+    choice_pkgs <- readline(L$enter_choice)
+    if (choice_pkgs == "1") {
+      cat(sprintf(L$packages_install_cmd, paste(sprintf('"%s"', missing_pkgs), collapse = ", ")))
+      repeat {
+        next_cmd <- readline(L$packages_next)
+        if (tolower(gsub("[()]", "", next_cmd)) == "next") break
+      }
+      still_missing <- missing_pkgs[!sapply(missing_pkgs, requireNamespace, quietly = TRUE)]
+      if (length(still_missing) > 0) {
+        stop("❌ Some packages are still not installed: ", paste(still_missing, collapse = ", "))
+      } else {
+        cat(L$packages_success)
+      }
+    } else {
+      cat(L$packages_skipped)
+    }
   }
   
-  # Фінальне повідомлення
-  cat("\n🎉 УКРАЇНСЬКІ ФРАЗИ АКТИВОВАНІ! 🎉\n")
-  cat("🎉 UKRAINIAN PHRASES ACTIVATED! 🎉\n\n")
-  cat("📚 Тепер запусти swirl() для початку курсу:\n")
-  cat("📚 Now run swirl() to start a course:\n\n")
-  cat("    swirl()\n\n")
-  cat("💡 Корисні команди (Useful commands):\n")
-  cat("    check_ukrainian_status()  # перевірити статус\n")
-  cat("    deactivate_ukrainian_translation()  # вимкнути будь-яку українізацію\n")
-  cat("    activate_ukrainian_phrases_only(demo=TRUE)  # показати демо\n\n")
-  
-  invisible(TRUE)
-}
-
-# ==============================================================================
-# ФУНКЦІЯ ПОВНОГО ВИМКНЕННЯ УКРАЇНІЗАЦІЇ (FULL DEACTIVATION)
-# ==============================================================================
-
-deactivate_ukrainian_translation <- function() {
-  cat("🚫 Вимикаю ВСІ українські переклади та відновлюю англійські фрази swirl...\n")
-  cat("🚫 Deactivating ALL Ukrainian translations and restoring English swirl phrases...\n")
-  
-  # Спробувати вимкнути повну українізацію, якщо така функція існує
-  if (exists("deactivate_full_ukrainian_swirl")) {
-    tryCatch({
-      deactivate_full_ukrainian_swirl()
-      cat("✓ Повна українізація вимкнена (full_ukrainian_swirl.R)\n")
-    }, error = function(e) {
-      cat("⚠️ Не вдалося вимкнути повну українізацію: ", e$message, "\n")
-    })
-  }
-  
-  # Спробувати вимкнути українські фрази (базові)
-  if (exists("deactivate_ukrainian_phrases")) {
-    tryCatch({
-      deactivate_ukrainian_phrases()
-      cat("✓ Українські фрази вимкнені (ukrainian_phrases.R)\n")
-    }, error = function(e) {
-      cat("⚠️ Не вдалося вимкнути українські фрази: ", e$message, "\n")
-    })
-  }
-  
-  cat("🔁 Тепер використовуються стандартні англійські повідомлення swirl.\n")
-  cat("🔁 English swirl messages are now active.\n")
-  
-  invisible(TRUE)
-}
-
-# ==============================================================================
-# ФУНКЦІЯ ПЕРЕВІРКИ СТАТУСУ / STATUS CHECK FUNCTION  
-# ==============================================================================
-
-check_ukrainian_status <- function() {
-  cat("🔍 Перевірка статусу української мови...\n")
-  cat("🔍 Checking Ukrainian language status...\n\n")
-  
-  # Перевірка чи завантажений swirl
-  if (!"swirl" %in% loadedNamespaces()) {
-    cat("❌ Пакет swirl не завантажений\n")
-    cat("❌ swirl package not loaded\n")
-    cat("💡 Виконай: library(swirl)\n")
+  # --- Load swirl ---
+  if (requireNamespace("swirl", quietly = TRUE)) {
+    suppressPackageStartupMessages(library(swirl))
+    cat(L$swirl_loaded)
+  } else {
+    cat(L$swirl_not_installed)
     return(invisible(FALSE))
   }
   
-  # Перевірка чи активовані українські фрази
+  # --- Translation choice ---
+  cat(L$translation_choose)
+  trans_choice <- readline(L$translation_enter)
+  
+  if (trans_choice == "1") {
+    cat(L$only_phrases)
+    tryCatch({
+      source("ukrainian_phrases.R")
+      ukrainian_phrases_activate()
+      cat(L$only_phrases_ok)
+    }, error = function(e) {
+      cat(L$only_phrases_fail, e$message, "\n")
+    })
+  } else if (trans_choice == "2") {
+    cat(L$full_translation)
+    tryCatch({
+      source("ukrainian_phrases.R")
+      ukrainian_phrases_activate()
+      if (file.exists("full_ukrainian_swirl.R")) {
+        source("full_ukrainian_swirl.R")
+        if (exists("full_ukrainian_swirl_activate")) {
+          full_ukrainian_swirl_activate()
+          cat(L$full_translation_ok)
+        }
+      }
+    }, error = function(e) {
+      cat(L$full_translation_fail, e$message, "\n")
+    })
+  } else {
+    cat(L$keep_original)
+  }
+  
+  # --- Demo & test ---
+  if (demo) {
+    cat(L$demo_title)
+    cat(L$demo_sep, "\n")
+    cat(L$demo_praise)
+    for(i in 1:3) {
+      cat("  ✓", praise_ua(), "\n")
+    }
+    cat(L$demo_try_again)
+    for(i in 1:3) {
+      cat("  ↻", tryAgain_ua(), "\n")
+    }
+    cat(L$demo_sep, "\n\n")
+  }
+  
+  if (test) {
+    cat(L$test_title)
+    test_ukrainian_phrases()
+  }
+  
+  # --- Finish ---
+  cat(L$finish_ua)
+  cat(L$swirl_start)
+  cat(L$commands)
+  
+  invisible(TRUE)
+}
+
+# ==============================================================================
+# Activation commands for user
+# ==============================================================================
+
+activate_ukrainian_phrases_only <- function() {
+  source("ukrainian_phrases.R")
+  ukrainian_phrases_activate()
+  cat("✓ Українські фрази активовано!\n")
+}
+
+activate_ukrainian_full_translation <- function() {
+  source("ukrainian_phrases.R")
+  ukrainian_phrases_activate()
+  if (file.exists("full_ukrainian_swirl.R")) {
+    source("full_ukrainian_swirl.R")
+    if (exists("full_ukrainian_swirl_activate")) {
+      full_ukrainian_swirl_activate()
+      cat("✓ Повна українізація активована!\n")
+    }
+  }
+}
+
+deactivate_ukrainian_translation <- function() {
+  # Deactivate Ukrainian translation for swirl (restores English interface)
+  if (!"swirl" %in% loadedNamespaces()) {
+    cat("❌ swirl package is not loaded.\n")
+    return(invisible(FALSE))
+  }
+  # Try to detach and reload swirl to restore original functions
+  try({
+    detach("package:swirl", unload = TRUE)
+    suppressPackageStartupMessages(library(swirl))
+    cat("🔁 Стандартний англійський swirl активовано.\n")
+    cat("✅ Українську локалізацію вимкнено!\n")
+    cat("Standard English swirl restored!\n")
+  }, silent = TRUE)
+  invisible(TRUE)
+}
+
+
+check_ukrainian_status <- function() {
+  if (!"swirl" %in% loadedNamespaces()) {
+    cat("❌ Пакет swirl не завантажений\n")
+    return(invisible(FALSE))
+  }
   tryCatch({
     current_praise <- get("praise", envir = asNamespace("swirl"))
     if (exists("praise_ua") && identical(current_praise, praise_ua)) {
       cat("✅ Українські фрази АКТИВНІ\n")
-      cat("✅ Ukrainian phrases ACTIVE\n")
       cat("📋 Приклад: ", praise_ua(), "\n")
-      return(invisible(TRUE))
     } else {
-      cat("⚠️  Англійські фрази активні\n")
-      cat("⚠️  English phrases active\n")
-      cat("💡 Виконай: activate_ukrainian()\n")
-      return(invisible(FALSE))
+      cat("⚠️ Англійські фрази активні\n")
     }
   }, error = function(e) {
     cat("❌ Помилка перевірки статусу: ", e$message, "\n")
-    return(invisible(FALSE))
   })
 }
 
-# ==============================================================================
-# ШВИДКІ КОМАНДИ / QUICK COMMANDS
-# ==============================================================================
-
-# Швидка активація без повідомлень
 quick_activate <- function() {
   if (!require("swirl", quietly = TRUE)) {
     install.packages("swirl")
@@ -260,15 +429,13 @@ quick_activate <- function() {
   source("ukrainian_phrases.R")
   if (file.exists("full_ukrainian_swirl.R")) {
     source("full_ukrainian_swirl.R")
-    if (exists("activate_full_ukrainian_swirl")) {
-      activate_full_ukrainian_swirl()
+    if (exists("full_ukrainian_swirl_activate")) {
+      full_ukrainian_swirl_activate()
     }
   }
-  activate_ukrainian_phrases()
-  invisible(TRUE)
+  ukrainian_phrases_activate()
 }
 
-# Швидкий тест
 quick_test <- function() {
   cat("🧪 Швидкий тест фраз:\n")
   if (exists("praise_ua")) {
@@ -278,31 +445,3 @@ quick_test <- function() {
     cat("❌ Українські фрази не завантажені. Виконай activate_ukrainian()\n")
   }
 }
-
-# ==============================================================================
-# АВТОМАТИЧНЕ ВИКОНАННЯ / AUTO EXECUTION
-# ==============================================================================
-
-# Виводимо інформацію при завантаженні файлу
-cat("🇺🇦 ГОЛОВНИЙ ФАЙЛ АКТИВАЦІЇ УКРАЇНСЬКОЇ МОВИ 🇺🇦\n")
-cat("🇺🇦 MAIN UKRAINIAN LANGUAGE ACTIVATION FILE 🇺🇦\n\n")
-cat("📋 Доступні команди (Available commands):\n")
-cat("  activate_ukrainian()                  # повна активація\n")
-cat("  activate_ukrainian(demo=TRUE)         # з демонстрацією\n") 
-cat("  activate_ukrainian(test=TRUE)         # з тестуванням\n")
-cat("  activate_ukrainian_phrases_only()     # лише українські фрази\n")
-cat("  activate_ukrainian_phrases_only(demo=TRUE) # лише фрази з демо\n")
-cat("  deactivate_ukrainian_translation()    # вимкнути всі українізації\n")
-cat("  check_ukrainian_status()              # перевірити статус\n")
-cat("  quick_activate()                      # швидка активація\n")
-cat("  quick_test()                          # швидкий тест\n\n")
-cat("🚀 ШВИДКИЙ СТАРТ: activate_ukrainian()\n")
-cat("🚀 QUICK START: activate_ukrainian()\n\n")
-
-# ==============================================================================
-# AI-HUMAN SYMBIOSIS ACKNOWLEDGMENT
-# ==============================================================================
-# This activation system was co-developed through AI-human collaboration
-# Provider: GitHub Copilot Chat (GPT-4 based)
-# Human Supervisor: @oleksandkov  
-# Framework: FIDES - Framework for Interpretive Dialogue and Epistemic Symbiosis 
