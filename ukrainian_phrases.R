@@ -66,7 +66,7 @@ tryAgain_ua <- function() {
 }
 
 # Функція для активації українських фраз
-activate_ukrainian_phrases <- function() {
+ukrainian_phrases_activate <- function() {
   # Перевіряємо чи завантажений swirl
   if(!"swirl" %in% loadedNamespaces()) {
     stop("Пакет swirl не завантажений. Спочатку виконай library(swirl)")
@@ -81,9 +81,7 @@ activate_ukrainian_phrases <- function() {
   message("  Тепер swirl використовуватиме українські повідомлення прогресу.")
   message("  Now swirl will use Ukrainian progress messages.")
 }
-
-# Функція для деактивації (повернення до англійських фраз)
-deactivate_ukrainian_phrases <- function() {
+ukrainian_phrases_deactivate <- function() {
   if(!"swirl" %in% loadedNamespaces()) {
     stop("Пакет swirl не завантажений. Спочатку виконай library(swirl)")
   }
