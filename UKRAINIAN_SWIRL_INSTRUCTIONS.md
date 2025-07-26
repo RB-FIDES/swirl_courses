@@ -106,17 +106,22 @@ swirl() # Запуск swirl
 
 ### Команди 
 ```r
+    info_fun()                            # показати всі доступні функції
     activate_ukrainian_phrases_only()     # активувати тільки українські фрази
     activate_ukrainian_full_translation() # активувати повну українізацію
     deactivate_ukrainian_translation()    # повернути стандартний англійський swirl
     check_ukrainian_status()              # перевірити статус перекладу
     quick_activate()                      # швидка активація
     quick_test()                          # швидкий тест фраз
-    activate_ukrainian(demo=TRUE)         # показати демо
+    activate(demo=TRUE)                   # показати демо
+    install_course_interactive()          # встановити курси інтерактивно
+    delete_course_interactive()           # видалити курси інтерактивно
+    update_course_interactive()           # оновити курси інтерактивно
 ```
 ### Поради 
 - Якщо активував переклад українських фраз, проте хочеш активувати повний переклад то слід спершу дективувати переклад `deactivate_ukrainian_translation()`, а вже потім активувати одну з функцій `activate_ukrainian_full_translation()` або `activate_ukrainian_phrases_only()`
 - `quick_activate()` ативує повний переклад українською 
+- Після того як ти закінчив налаштування за допомогою `activate()`, ти можеш запускати swirl як звичайно, просто викликавши `swirl()` (функція `activate()` зникає - керуєш через команди)
 
 ### Що робить система?
 
@@ -159,6 +164,11 @@ swirl() # Запуск swirl
 
 ## ВИРІШЕННЯ ПРОБЛЕМ
 
+### Забули команди?
+
+```r
+info_fun() # Показати всі доступні функції
+```
 ### Помилка "swirl не завантажений":
 ```r
 library(swirl)
